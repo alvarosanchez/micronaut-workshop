@@ -1,0 +1,62 @@
+= image:https://raw.githubusercontent.com/micronaut-projects/static-website/gh-pages/images/favicon-32x32.png[] https://alvarosanchez.github.io/micronaut-workshop/[Micronaut Workshop]
+Alvaro Sanchez-Mariscal <alvaro.sanchezmariscal@gmail.com>
+:toc: left
+:toclevels: 4
+:source-highlighter: highlightjs
+:icons: font
+:imagesdir: ./images
+
+++++
+<a href="https://github.com/alvarosanchez/micronaut-workshop"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+++++
+
+Introductory workshop about http://micronaut.io[Micronaut].
+
+== Software Requirements
+
+In order to do this workshop, you need the following:
+
+=== Clone this repository
+
+Once done, you can clone this repo:
+
+----
+git clone https://github.com/alvarosanchez/micronaut-workshop.git
+----
+
+NOTE: You will find each exercise's template files on each `exNN` folder. Solution is always inside a `solution` folder. To highlight the actions you actually need to perform, an icon is used: icon:hand-o-right[]
+
+== Application architecture 
+
+Throughout this workshop, we will be creating a football (soccer) management system.
+
+ifdef::generate-diagrams[]
+[plantuml, football-diagram, png]
+....
+together {
+    node Fixtures
+    database Mongo
+}
+
+together {
+    node Clubs
+    database H2
+}
+
+Clubs -> H2
+H2 -[hidden]- Fixtures
+Fixtures -> Mongo
+Fixtures -> Clubs
+....
+endif::[]
+
+image::football-diagram.png[]
+
+* `clubs` is the microservice responsible for managing clubs. It uses Hibernate 
+  as a data access layer.
+* `fixtures` manages all game fixtures, storing its data in MongoDB. For the 
+  teams playing in a game, it doesn't store their full details, but rather their 
+  ID. It has a service-discovery-enabled HTTP client to fetch club details from 
+  the `clubs` microservice.
+
+:numbered:
