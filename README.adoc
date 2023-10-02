@@ -16,6 +16,22 @@ Introductory workshop about http://micronaut.io[Micronaut].
 
 In order to do this workshop, you need the following:
 
+* Linux, MacOS or Windows with WSL with shell access, and the following installed:
+- `curl`.
+- `wget`.
+- `unzip`.
+- `git`.
+* https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-17.0.8[GraalVM for JDK 17].
+- Recommended to be installed with https://sdkman.io[SDKMAN!]: `sdk install java 17.0.7-graalce`.
+
+* Ensure that the current JDK is GraalVM for Java 17:
+
+    $ java -version
+    openjdk version "17.0.7" 2023-04-18
+    OpenJDK Runtime Environment GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12)
+    OpenJDK 64-Bit Server VM GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12, mixed mode, sharing)
+
+
 === Clone this repository
 
 Once done, you can clone this repo:
@@ -24,9 +40,9 @@ Once done, you can clone this repo:
 git clone https://github.com/alvarosanchez/micronaut-workshop.git
 ----
 
-NOTE: You will find each exercise's template files on each `exNN` folder. Solution is always inside a `solution` folder. To highlight the actions you actually need to perform, an icon is used: icon:hand-o-right[]
+NOTE: You will find each lab's template files on each `labNN` folder. Solution is always inside a `solution` folder. To highlight the actions you actually need to perform, an icon is used: icon:hand-o-right[]
 
-== Application architecture 
+== Application architecture TODO
 
 Throughout this workshop, we will be creating a football (soccer) management system.
 
@@ -60,3 +76,47 @@ image::football-diagram.png[]
   the `clubs` microservice.
 
 :numbered:
+
+== Getting started with Micronaut and GraalVM (15 minutes)
+
+TIP: Change to the `lab01` directory to work on this exercise
+
+There are multiple ways to create a new Micronaut application:
+
+1. Using the https://micronaut.io/launch/[Micronaut Launch] web application.
+2. Using the https://micronaut-projects.github.io/micronaut-starter/latest/guide/#installation[Micronaut `mn` CLI].
+3. Using `curl` against the `launch.micronaut.io` API to download a ZIP.
+
+=== Using Micronaut Launch to create a new application (5 minutes)
+
+icon:hand-o-right[] We will use the third option, so that you can copy/paste the command. To see the options available,
+run:
+
+  curl https://launch.micronaut.io
+
+Micronaut Launch uses _features_ as building blocks to create a new application. Features can contribute to the
+application in different ways, such as adding build dependencies, configuration properties, sample code, etc.
+
+Let's create a new application with the following command:
+
+  curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_17&features=graalvm' --output hello.zip
+
+You can now unzip the file and open it in your IDE.
+
+=== Creating a Hello World controller (5 minutes)
+
+icon:hand-o-right[] Create a new controller with a single endpoint `/hello/{name}` that returns a greeting message using
+the provided path variable:
+
++++ <details><summary> +++
+Click to expand
++++ </summary><div> +++
+[source,java]
+----
+include::./lab01/solution/hello/src/main/java/com/example/micronaut/HelloController.java[tag=class]
+----
+<1> The `@Controller` annotation marks this class as a controller on the default `/` route.
+<2> The `@Get` annotation marks this method as a `GET` endpoint on the `/hello/{name}` route.
+<3> The `@PathVariable` annotation marks the `name` parameter as a path variable.
+<4> The `@QueryValue` annotation marks the `uppercase` parameter as a query parameter.
++++ </div></details> +++
