@@ -434,6 +434,77 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.pygments .hll { background-color: #ffffcc }
+pre.pygments { background: #f8f8f8; }
+pre.pygments .tok-c { color: #3D7B7B; font-style: italic } /* Comment */
+pre.pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+pre.pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+pre.pygments .tok-o { color: #666666 } /* Operator */
+pre.pygments .tok-ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+pre.pygments .tok-cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+pre.pygments .tok-cp { color: #9C6500 } /* Comment.Preproc */
+pre.pygments .tok-cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+pre.pygments .tok-c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+pre.pygments .tok-cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+pre.pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
+pre.pygments .tok-gr { color: #E40000 } /* Generic.Error */
+pre.pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+pre.pygments .tok-gi { color: #008400 } /* Generic.Inserted */
+pre.pygments .tok-go { color: #717171 } /* Generic.Output */
+pre.pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+pre.pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+pre.pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+pre.pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+pre.pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+pre.pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+pre.pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+pre.pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+pre.pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+pre.pygments .tok-m { color: #666666 } /* Literal.Number */
+pre.pygments .tok-s { color: #BA2121 } /* Literal.String */
+pre.pygments .tok-na { color: #687822 } /* Name.Attribute */
+pre.pygments .tok-nb { color: #008000 } /* Name.Builtin */
+pre.pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+pre.pygments .tok-no { color: #880000 } /* Name.Constant */
+pre.pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+pre.pygments .tok-ni { color: #717171; font-weight: bold } /* Name.Entity */
+pre.pygments .tok-ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+pre.pygments .tok-nf { color: #0000FF } /* Name.Function */
+pre.pygments .tok-nl { color: #767600 } /* Name.Label */
+pre.pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+pre.pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+pre.pygments .tok-nv { color: #19177C } /* Name.Variable */
+pre.pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+pre.pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+pre.pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+pre.pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+pre.pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+pre.pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+pre.pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+pre.pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+pre.pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+pre.pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+pre.pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+pre.pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+pre.pygments .tok-se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+pre.pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+pre.pygments .tok-si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+pre.pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+pre.pygments .tok-sr { color: #A45A77 } /* Literal.String.Regex */
+pre.pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+pre.pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+pre.pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+pre.pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+pre.pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+pre.pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+pre.pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+pre.pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -453,8 +524,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_application_architecture_todo">Application architecture TODO</a></li>
 <li><a href="#_getting_started_with_micronaut_and_graalvm_15_minutes">1. Getting started with Micronaut and GraalVM (15 minutes)</a>
 <ul class="sectlevel2">
-<li><a href="#_using_micronaut_launch_to_create_a_new_application_5_minutes">1.1. Using Micronaut Launch to create a new application (5 minutes)</a></li>
-<li><a href="#_creating_a_hello_world_controller_5_minutes">1.2. Creating a Hello World controller (5 minutes)</a></li>
+<li><a href="#_using_micronaut_launch_to_create_a_new_application_2_minutes">1.1. Using Micronaut Launch to create a new application (2 minutes)</a></li>
+<li><a href="#_running_the_application_with_the_micronaut_maven_plugin_2_minutes">1.2. Running the application with the Micronaut Maven Plugin (2 minutes)</a></li>
+<li><a href="#_creating_a_hello_world_controller_2_minutes">1.3. Creating a Hello World controller (2 minutes)</a></li>
+<li><a href="#_testing_the_application_5_minutes">1.4. Testing the application (5 minutes)</a></li>
+<li><a href="#_generating_a_native_executable_5_minutes">1.5. Generating a native executable (5 minutes)</a></li>
 </ul>
 </li>
 </ul>
@@ -510,7 +584,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Ensure that the current JDK is GraalVM for Java 17:</p>
 <div class="literalblock">
 <div class="content">
-<pre>$ java -version
+<pre>java -version
 openjdk version "17.0.7" 2023-04-18
 OpenJDK Runtime Environment GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12)
 OpenJDK 64-Bit Server VM GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12, mixed mode, sharing)</pre>
@@ -548,7 +622,7 @@ You will find each lab&#8217;s template files on each <code>labNN</code> folder.
 <h2 id="_application_architecture_todo">Application architecture TODO</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Throughout this workshop, we will be creating a football (soccer) management system.</p>
+<p>Throughout this workshop, you will be creating a football (soccer) management system.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -603,10 +677,12 @@ Change to the <code>lab01</code> directory to work on this exercise
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_using_micronaut_launch_to_create_a_new_application_5_minutes">1.1. Using Micronaut Launch to create a new application (5 minutes)</h3>
+<h3 id="_using_micronaut_launch_to_create_a_new_application_2_minutes">1.1. Using Micronaut Launch to create a new application (2 minutes)</h3>
 <div class="paragraph">
-<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> We will use the third option, so that you can copy/paste the command. To see the options available,
-run:</p>
+<p>We will use the third option, so that you can copy/paste the commands.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> To see the options available, run:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -618,7 +694,7 @@ run:</p>
 application in different ways, such as adding build dependencies, configuration properties, sample code, etc.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s create a new application with the following command:</p>
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Let&#8217;s create a new application with the following command:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -626,14 +702,33 @@ application in different ways, such as adding build dependencies, configuration 
 </div>
 </div>
 <div class="paragraph">
-<p>You can now unzip the file and open it in your IDE.</p>
+<p>You can now unzip the file and open the resulting folder in your IDE.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_hello_world_controller_5_minutes">1.2. Creating a Hello World controller (5 minutes)</h3>
+<h3 id="_running_the_application_with_the_micronaut_maven_plugin_2_minutes">1.2. Running the application with the Micronaut Maven Plugin (2 minutes)</h3>
+<div class="paragraph">
+<p>The <a href="https://github.com/micronaut-projects/micronaut-maven-plugin">Micronaut Maven Plugin</a> provides a convenient way to
+run your application from the command line.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> To run the application, execute:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./mvnw mn:run</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can leave the application running while you work on the rest of the exercise, since the plugin will automatically
+restart the application when it detects changes in the source code.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_a_hello_world_controller_2_minutes">1.3. Creating a Hello World controller (2 minutes)</h3>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create a new controller with a single endpoint <code>/hello/{name}</code> that returns a greeting message using
-the provided path variable:</p>
+the provided path variable.</p>
 </div>
 <div class="paragraph">
 <p> <details><summary> 
@@ -642,15 +737,15 @@ Click to expand
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java">@Controller <i class="conum" data-value="1"></i><b>(1)</b>
-public class HelloController {
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@Controller</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-kd">public</span><span class="tok-w"> </span><span class="tok-kd">class</span> <span class="tok-nc">HelloController</span><span class="tok-w"> </span><span class="tok-p">{</span>
 
-    @Get("/hello/{name}") <i class="conum" data-value="2"></i><b>(2)</b>
-    public String sayHello(String name) { <i class="conum" data-value="3"></i><b>(3)</b>
-        return "Hello " + name; <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-w">    </span><span class="tok-nd">@Get</span><span class="tok-p">(</span><span class="tok-s">&quot;/hello/{name}&quot;</span><span class="tok-p">)</span><span class="tok-w"> </span><i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-w">    </span><span class="tok-kd">public</span><span class="tok-w"> </span><span class="tok-n">String</span><span class="tok-w"> </span><span class="tok-nf">sayHello</span><span class="tok-p">(</span><span class="tok-n">String</span><span class="tok-w"> </span><span class="tok-n">name</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"> </span><i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-w">        </span><span class="tok-k">return</span><span class="tok-w"> </span><span class="tok-s">&quot;Hello &quot;</span><span class="tok-w"> </span><span class="tok-o">+</span><span class="tok-w"> </span><span class="tok-n">name</span><span class="tok-p">;</span>
 
-    }
-}</code></pre>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -661,18 +756,137 @@ public class HelloController {
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The <code>@Get</code> annotation marks this method as a <code>GET</code> endpoint on the <code>/hello/{name}</code> route.</td>
+<td>The <code>@Get</code> annotation marks this method as a <code>GET</code> endpoint on the <code>/hello/{name}</code> route</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The <code>@PathVariable</code> annotation marks the <code>name</code> parameter as a path variable.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>The <code>@QueryValue</code> annotation marks the <code>uppercase</code> parameter as a query parameter.
+<td>The <code>name</code> parameter matches the path variable in the route. A typo in either of them will result in a compilation
+    error.
  </div></details> </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing_the_application_5_minutes">1.4. Testing the application (5 minutes)</h3>
+<div class="paragraph">
+<p>Since the application is still running, you can test it using <code>curl</code>:</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Open a new terminal and run:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl http://localhost:8080/hello/World</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While manual testing is useful, writing an automated functional test is even better. Micronaut provides a super-fast
+and convenient way to write functional tests using the <a href="https://micronaut-projects.github.io/micronaut-test/latest/guide/">Micronaut Test</a> library.</p>
+</div>
+<div class="paragraph">
+<p>Generated applications include a sample test that asserts that the application startups successfully.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Open <code>src/test/java/com/example/micronaut/HelloTest.java</code> and add a new test that asserts that the
+<code>/hello/{name}</code> endpoint returns a greeting message.</p>
+</div>
+<div class="paragraph">
+<p> <details><summary> 
+Click to expand
+ </summary><div> </p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@MicronautTest</span>
+<span class="tok-kd">class</span> <span class="tok-nc">HelloTest</span><span class="tok-w"> </span><span class="tok-p">{</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Inject</span>
+<span class="tok-w">    </span><span class="tok-n">EmbeddedApplication</span><span class="tok-o">&lt;?&gt;</span><span class="tok-w"> </span><span class="tok-n">application</span><span class="tok-p">;</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Inject</span>
+<span class="tok-w">    </span><span class="tok-nd">@Client</span><span class="tok-p">(</span><span class="tok-s">&quot;/&quot;</span><span class="tok-p">)</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-w">    </span><span class="tok-n">HttpClient</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">;</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Test</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItWorks</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">        </span><span class="tok-n">Assertions</span><span class="tok-p">.</span><span class="tok-na">assertTrue</span><span class="tok-p">(</span><span class="tok-n">application</span><span class="tok-p">.</span><span class="tok-na">isRunning</span><span class="tok-p">());</span>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Test</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testSayHello</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">        </span><span class="tok-n">String</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">toBlocking</span><span class="tok-p">().</span><span class="tok-na">retrieve</span><span class="tok-p">(</span><span class="tok-s">&quot;/hello/World&quot;</span><span class="tok-p">);</span>
+<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-s">&quot;Hello World&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">);</span>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>@Client("/")</code> annotation will inject an HTTP client connected to the embedded server random port.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p> </div></details> </p>
+</div>
+<div class="paragraph">
+<p>Before running the test, let&#8217;s add a Logback logger to see the details of the HTTP client.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Open <code>src/main/resources/logback.xml</code> and add the following logger:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span></span><span class="tok-nt">&lt;logger</span><span class="tok-w"> </span><span class="tok-na">name=</span><span class="tok-s">&quot;io.micronaut.http.client&quot;</span><span class="tok-w"> </span><span class="tok-na">level=</span><span class="tok-s">&quot;trace&quot;</span><span class="tok-w"> </span><span class="tok-nt">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Now you can run the test from your IDE or from the command line:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./mvnw test</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_generating_a_native_executable_5_minutes">1.5. Generating a native executable (5 minutes)</h3>
+<div class="paragraph">
+<p>Micronaut applications can be compiled to native executables using GraalVM. This allows you to create a single
+self-contained executable that can be run without a JVM.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> To generate a native executable, run:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./mvnw package -Dpackaging=native-image</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On modern hardware, this should take about one minute.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Once finished, you can run the executable:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./target/hello</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will see that Micronaut starts in a few milliseconds.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Test the application again with <code>curl</code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl http://localhost:8080/hello/World</pre>
+</div>
 </div>
 </div>
 </div>
@@ -680,7 +894,7 @@ public class HelloController {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-02 10:01:29 +0200
+Last updated 2023-10-02 10:58:39 +0200
 </div>
 </div>
 </body>
