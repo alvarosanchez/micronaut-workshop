@@ -9,7 +9,7 @@ public class HelloController {
 
     @Get("/hello/{name}") // <2>
     public String sayHello(String name) { // <3>
-        return "Hello " + name; // <4>
+        return "Hello " + name;
 
     }
 }
