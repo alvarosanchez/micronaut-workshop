@@ -11,7 +11,7 @@
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
-<!-- tag::logger -->
+<!-- tag::logger[] -->
     <logger name="io.micronaut.http.client" level="trace" />
-<!-- end::logger -->
+<!-- end::logger[] -->
 </configuration>

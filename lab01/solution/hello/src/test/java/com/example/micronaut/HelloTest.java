@@ -11,6 +11,7 @@ import jakarta.inject.Inject;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//tag::test[]
 @MicronautTest
 class HelloTest {
 
@@ -31,5 +32,5 @@ class HelloTest {
         String response = client.toBlocking().retrieve("/hello/World");
         assertEquals("Hello World", response);
     }
-
 }
+//end::test[]
