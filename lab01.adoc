@@ -1,0 +1,118 @@
+== Getting started with Micronaut and GraalVM (15 minutes)
+
+TIP: Change to the `lab01` directory to work on this exercise
+
+There are multiple ways to create a new Micronaut application:
+
+1. Using the https://micronaut.io/launch/[Micronaut Launch] web application.
+2. Using the https://micronaut-projects.github.io/micronaut-starter/latest/guide/#installation[Micronaut `mn` CLI].
+3. Using `curl` against the `launch.micronaut.io` API to download a ZIP.
+
+=== Using Micronaut Launch to create a new application (2 minutes)
+
+We will use the third option, so that you can copy/paste the commands.
+
+icon:hand-o-right[] To see the options available, run:
+
+  curl https://launch.micronaut.io
+
+Micronaut Launch uses _features_ as building blocks to create a new application. Features can contribute to the
+application in different ways, such as adding build dependencies, configuration properties, sample code, etc.
+
+icon:hand-o-right[] Let's create a new application with the following command:
+
+  curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_17&features=graalvm' --output hello.zip
+
+You can now unzip the file and open the resulting folder in your IDE.
+
+=== Running the application with the Micronaut Maven Plugin (2 minutes)
+
+The https://github.com/micronaut-projects/micronaut-maven-plugin[Micronaut Maven Plugin] provides a convenient way to
+run your application from the command line.
+
+icon:hand-o-right[] To run the application, execute:
+
+  ./mvnw mn:run
+
+You can leave the application running while you work on the rest of the exercise, since the plugin will automatically
+restart the application when it detects changes in the source code.
+
+=== Creating a Hello World controller (2 minutes)
+
+icon:hand-o-right[] Create a new controller with a single endpoint `/hello/{name}` that returns a greeting message using
+the provided path variable.
+
++++ <details><summary> +++
+Click to expand
++++ </summary><div> +++
+[source,java]
+----
+include::./lab01/solution/hello/src/main/java/com/example/micronaut/HelloController.java[tag=class]
+----
+<1> The `@Controller` annotation marks this class as a controller on the default `/` route.
+<2> The `@Get` annotation marks this method as a `GET` endpoint on the `/hello/{name}` route
+<3> The `name` parameter matches the path variable in the route. A typo in either of them will result in a compilation
+error.
++++ </div></details> +++
+
+=== Testing the application (5 minutes)
+
+Since the application is still running, you can test it using `curl`:
+
+icon:hand-o-right[] Open a new terminal and run:
+
+  curl http://localhost:8080/hello/World
+
+While manual testing is useful, writing an automated functional test is even better. Micronaut provides a super-fast
+and convenient way to write functional tests using the https://micronaut-projects.github.io/micronaut-test/latest/guide/[Micronaut Test] library.
+
+Generated applications include a sample test that asserts that the application startups successfully.
+
+icon:hand-o-right[] Open `src/test/java/com/example/micronaut/HelloTest.java` and add a new test that asserts that the
+`/hello/{name}` endpoint returns a greeting message.
+
++++ <details><summary> +++
+Click to expand
++++ </summary><div> +++
+[source,java]
+----
+include::./lab01/solution/hello/src/test/java/com/example/micronaut/HelloTest.java[tag=test]
+----
+<1> The `@Client("/")` annotation will inject an HTTP client connected to the embedded server random port.
+
++++ </div></details> +++
+
+Before running the test, let's add a Logback logger to see the details of the HTTP client.
+
+icon:hand-o-right[] Open `src/main/resources/logback.xml` and add the following logger:
+
+[source,xml]
+----
+include::./lab01/solution/hello/src/main/resources/logback.xml[tag=logger,indent=0]
+----
+
+icon:hand-o-right[] Now you can run the test from your IDE or from the command line:
+
+  ./mvnw test
+
+=== Generating a native executable (5 minutes)
+
+Micronaut applications can be compiled to native executables using GraalVM. This allows you to create a single
+self-contained executable that can be run without a JVM.
+
+icon:hand-o-right[] To generate a native executable, run:
+
+  ./mvnw package -Dpackaging=native-image
+
+On modern hardware, this should take about one minute.
+
+icon:hand-o-right[] Once finished, you can run the executable:
+
+  ./target/hello
+
+You will see that Micronaut starts in a few milliseconds.
+
+icon:hand-o-right[] Test the application again with `curl`:
+
+  curl http://localhost:8080/hello/World
+
