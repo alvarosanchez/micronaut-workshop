@@ -15,6 +15,7 @@ asciidoctor -a source-highlighter=pygments README.adoc
 mv images /tmp
 
 git checkout -f gh-pages
+git pull origin gh-pages
 mv /tmp/images/* images/
 mv README.html index.html
 git add -A
