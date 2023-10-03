@@ -37,6 +37,8 @@ icon:hand-o-right[] To run the application, execute:
 You can leave the application running while you work on the rest of the exercise, since the plugin will automatically
 restart the application when it detects changes in the source code.
 
+TIP: Micronaut applications can also be run from the IDE. Refer to the https://docs.micronaut.io/latest/guide/index.html#ideSetup[IDE Setup] section of the Micronaut documentation for more details.
+
 === Creating a Hello World controller (2 minutes)
 
 icon:hand-o-right[] Create a new controller with a single endpoint `/hello/{name}` that returns a greeting message using
