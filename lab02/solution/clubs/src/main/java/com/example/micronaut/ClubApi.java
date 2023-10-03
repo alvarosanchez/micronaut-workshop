@@ -5,8 +5,6 @@ import io.micronaut.http.annotation.Get;
 
 public interface ClubApi {
 
-    String PATH = "/clubs";
-
     @Get
     Iterable<Club> list();
 

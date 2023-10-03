@@ -3,10 +3,7 @@ package com.example.micronaut;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 
-import static com.example.micronaut.ClubApi.PATH;
-
-
-@Controller(PATH)
+@Controller("/clubs")
 public class ClubController implements ClubApi {
 
     private final ClubRepository repository;

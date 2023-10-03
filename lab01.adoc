@@ -8,7 +8,7 @@ There are multiple ways to create a new Micronaut application:
 2. Using the https://micronaut-projects.github.io/micronaut-starter/latest/guide/#installation[Micronaut `mn` CLI].
 3. Using `curl` against the `launch.micronaut.io` API to download a ZIP.
 
-=== Using Micronaut Launch to create a new application (2 minutes)
+=== Using Micronaut Launch to create a new application (3 minutes)
 
 We will use the third option, so that you can copy/paste the commands.
 
