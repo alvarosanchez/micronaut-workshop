@@ -1,0 +1,10 @@
+insert into club(name, stadium) values ('Real Madrid', 'Santiago Bernabéu');
+insert into club(name, stadium) values ('FC Barcelona', 'Camp Nou');
+insert into club(name, stadium) values ('Manchester United', 'Old Trafford');
+insert into club(name, stadium) values ('Chelsea', 'Stamford Bridge');
+insert into club(name, stadium) values ('Paris Saint-Germain', 'Parc des Princes');
+insert into club(name, stadium) values ('Olympique de Marseille', 'Stade Vélodrome');
+insert into club(name, stadium) values ('Bayern Munich', 'Allianz Arena');
+insert into club(name, stadium) values ('Borussia Dortmund', 'Signal Iduna Park');
+insert into club(name, stadium) values ('Juventus', 'Juventus Stadium');
+insert into club(name, stadium) values ('Inter Milan', 'Giuseppe Meazza');

@@ -531,6 +531,11 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_generating_a_native_executable_5_minutes">1.5. Generating a native executable (5 minutes)</a></li>
 </ul>
 </li>
+<li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_15_minutes">2. Implementing a data access layer with Micronaut Data JDBC (15 minutes)</a>
+<ul class="sectlevel2">
+<li><a href="#_preparing_the_database_5_minutes">2.1. Preparing the database (5 minutes)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -579,6 +584,9 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>A valid Docker environment with the following image pulled: <code>postgres:latest</code>.</p>
 </li>
 <li>
 <p>Ensure that the current JDK is GraalVM for Java 17:</p>
@@ -723,6 +731,18 @@ run your application from the command line.</p>
 <p>You can leave the application running while you work on the rest of the exercise, since the plugin will automatically
 restart the application when it detects changes in the source code.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Micronaut applications can also be run from the IDE. Refer to the <a href="https://docs.micronaut.io/latest/guide/index.html#ideSetup">IDE Setup</a> section of the Micronaut documentation for more details.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_creating_a_hello_world_controller_2_minutes">1.3. Creating a Hello World controller (2 minutes)</h3>
@@ -761,7 +781,7 @@ Click to expand
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>The <code>name</code> parameter matches the path variable in the route. A typo in either of them will result in a compilation
-    error.
+error.
  </div></details> </td>
 </tr>
 </table>
@@ -891,10 +911,121 @@ self-contained executable that can be run without a JVM.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_implementing_a_data_access_layer_with_micronaut_data_jdbc_15_minutes">2. Implementing a data access layer with Micronaut Data JDBC (15 minutes)</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Change to the <code>lab02</code> directory to work on this exercise
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In this exercise, you will create a data access layer
+using <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/">Micronaut Data JDBC</a>. This library provides a
+convenient way to create repositories that can be used to perform CRUD operations on a database.</p>
+</div>
+<div class="paragraph">
+<p>For development and testing on a real database, we are going to use <a href="https://www.postgresql.org/">PostgreSQL</a> via
+<a href="https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/">Micronaut Test Resources</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_preparing_the_database_5_minutes">2.1. Preparing the database (5 minutes)</h3>
+<div class="paragraph">
+<p>Before going any further, make sure you have a recent version of <code>postgres:latest</code> pulled in your Docker environment.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Execute the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>docker pull postgres:latest</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also, to setup the schema and add some sample data, we are going to use <a href="https://flywaydb.org/">Flyway</a> via its
+<a href="https://github.com/micronaut-projects/micronaut-flyway">Micronaut Flyway integration</a>.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following migration files:</p>
+</div>
+<div class="paragraph">
+<p> <details><summary> 
+Click to expand
+ </summary><div> </p>
+</div>
+<div class="listingblock">
+<div class="title"><code>src/main/resources/db/migration/V1__schema.sql</code></div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">create</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">id</span><span class="tok-w"> </span><span class="tok-nb">SERIAL</span><span class="tok-w"> </span><span class="tok-k">PRIMARY</span><span class="tok-w"> </span><span class="tok-k">KEY</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">name</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title"><code>src/main/resources/db/migration/V2__data.sql</code></div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Real Madrid&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Santiago Bernabéu&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;FC Barcelona&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Camp Nou&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Manchester United&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Old Trafford&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Chelsea&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Stamford Bridge&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Paris Saint-Germain&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Parc des Princes&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Olympique de Marseille&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Stade Vélodrome&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Bayern Munich&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Allianz Arena&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Borussia Dortmund&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Signal Iduna Park&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Juventus&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Juventus Stadium&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Inter Milan&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Giuseppe Meazza&#39;</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p> </div></details> </p>
+</div>
+<div class="paragraph">
+<p>At this point, you should be able to run the application and see if the migrations are applied. When using the
+Micronaut Maven Plugin&#8217;s <code>mn:run</code> goal, a Test Resources service will be started automatically, so that required
+containers are run before the application is running.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Execute the following command</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./mvnw mn:run</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-go">...</span>
+<span class="tok-go">[info] Starting Micronaut Test Resources service, version 2.0.0</span>
+<span class="tok-go">[test-resources-service] 08:10:56.830 [ForkJoinPool.commonPool-worker-9] INFO  i.m.t.e.TestResourcesResolverLoader - Loaded 2 test resources resolvers: io.micronaut.testresources.postgres.PostgreSQLTestResourceProvider, io.micronaut.testresources.testcontainers.GenericTestContainerProvider</span>
+<span class="tok-go">[test-resources-service] 08:10:57.048 [main] INFO  i.m.t.server.TestResourcesService - A Micronaut Test Resources server is listening on port 60231, started in 360ms</span>
+<span class="tok-go">...</span>
+<span class="tok-go">[test-resources-service] 08:10:57.803 [default-nioEventLoopGroup-1-2] INFO  i.m.t.testcontainers.TestContainers - Starting test container postgres</span>
+<span class="tok-go">...</span>
+<span class="tok-go">INFO: Migrating schema &quot;public&quot; to version &quot;1 - schema&quot;</span>
+<span class="tok-go">INFO: Migrating schema &quot;public&quot; to version &quot;2 - data&quot;</span>
+<span class="tok-go">INFO: Successfully applied 2 migrations to schema &quot;public&quot;, now at version v2 (execution time 00:00.016s)</span>
+<span class="tok-go">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Now, hit <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>C</kbd></span> to stop the application, since going forward it is going to be tested with
+functional tests.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-02 10:58:39 +0200
+Last updated 2023-10-03 08:20:50 +0200
 </div>
 </div>
 </body>
