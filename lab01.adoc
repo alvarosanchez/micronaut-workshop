@@ -1,4 +1,4 @@
-== Getting started with Micronaut and GraalVM (15 minutes)
+== Getting started with Micronaut and GraalVM (20 minutes)
 
 TIP: Change to the `lab01` directory to work on this exercise
 
@@ -25,7 +25,7 @@ icon:hand-o-right[] Let's create a new application with the following command:
 
 You can now unzip the file and open the resulting folder in your IDE.
 
-=== Running the application with the Micronaut Maven Plugin (2 minutes)
+=== Running the application with the Micronaut Maven Plugin (3 minutes)
 
 The https://github.com/micronaut-projects/micronaut-maven-plugin[Micronaut Maven Plugin] provides a convenient way to
 run your application from the command line.
@@ -39,7 +39,7 @@ restart the application when it detects changes in the source code.
 
 TIP: Micronaut applications can also be run from the IDE. Refer to the https://docs.micronaut.io/latest/guide/index.html#ideSetup[IDE Setup] section of the Micronaut documentation for more details.
 
-=== Creating a Hello World controller (2 minutes)
+=== Creating a Hello World controller (3 minutes)
 
 icon:hand-o-right[] Create a new controller with a single endpoint `/hello/{name}` that returns a greeting message using
 the provided path variable.
