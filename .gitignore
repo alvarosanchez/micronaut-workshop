@@ -10,3 +10,6 @@ bin/
 out/
 .vscode/
 README.html
+target/
+lab01/
+lab02/
