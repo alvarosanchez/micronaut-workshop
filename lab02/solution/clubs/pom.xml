@@ -57,11 +57,13 @@
       <artifactId>micronaut-jdbc-hikari</artifactId>
       <scope>compile</scope>
     </dependency>
+<!-- tag::jpa[] -->
     <dependency>
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
-      <scope>provided</scope>
+      <scope>provided</scope> <!--1-->
     </dependency>
+<!-- end::jpa[] -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>

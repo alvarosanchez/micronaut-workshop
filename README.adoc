@@ -31,18 +31,16 @@ In order to do this workshop, you need the following:
     OpenJDK Runtime Environment GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12)
     OpenJDK 64-Bit Server VM GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12, mixed mode, sharing)
 
-
 === Clone this repository
 
 Once done, you can clone this repo:
 
-----
-git clone https://github.com/alvarosanchez/micronaut-workshop.git
-----
+  git clone https://github.com/alvarosanchez/micronaut-workshop.git
 
-NOTE: You will find each lab's template files on each `labNN` folder. Solution is always inside a `solution` folder. To highlight the actions you actually need to perform, an icon is used: icon:hand-o-right[]
+NOTE: You will find each lab's template files on each `labNN` folder. Solution is always inside a `solution` folder.
+To highlight the actions you actually need to perform, an icon is used: icon:hand-o-right[]
 
-== Application architecture TODO
+== Application architecture
 
 Throughout this workshop, you will be creating a football (soccer) management system.
 
@@ -50,30 +48,17 @@ ifdef::generate-diagrams[]
 [plantuml, football-diagram, png]
 ....
 together {
-    node Fixtures
-    database Mongo
-}
-
-together {
     node Clubs
-    database H2
+    database Postgres
 }
 
-Clubs -> H2
-H2 -[hidden]- Fixtures
-Fixtures -> Mongo
-Fixtures -> Clubs
+Clubs -> Postgres
 ....
 endif::[]
 
 image::football-diagram.png[]
 
-* `clubs` is the microservice responsible for managing clubs. It uses Hibernate 
-  as a data access layer.
-* `fixtures` manages all game fixtures, storing its data in MongoDB. For the 
-  teams playing in a game, it doesn't store their full details, but rather their 
-  ID. It has a service-discovery-enabled HTTP client to fetch club details from 
-  the `clubs` microservice.
+* `clubs` is the microservice responsible for managing clubs. It uses Micronaut Data JPA as a data access layer.
 
 :numbered:
 

@@ -9,7 +9,7 @@ convenient way to create repositories that can be used to perform CRUD operation
 For development and testing on a real database, we are going to use https://www.postgresql.org/[PostgreSQL] via
 https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/[Micronaut Test Resources].
 
-=== Preparing the database (5 minutes)
+=== Preparing the database (10 minutes)
 
 Before going any further, make sure you have a recent version of `postgres:latest` pulled in your Docker environment.
 
@@ -66,3 +66,18 @@ INFO: Successfully applied 2 migrations to schema "public", now at version v2 (e
 
 icon:hand-o-right[] Now, hit kbd:[Ctrl+C] to stop the application, since going forward it is going to be tested with
 functional tests.
+
+=== Implementing the data access layer (20 minutes)
+
+For the data access layer, we are going to use the https://micronaut-projects.github.io/micronaut-data/latest/guide/#jdbc[Micronaut Data] library in its JDBC flavour. In the source code, we will use
+standard JPA annotations.
+
+icon:hand-o-right[] Add the following dependency:
+
+[source,xml]
+----
+include::./lab02/solution/clubs/pom.xml[tag=jpa,indent=0]
+----
+<1> It is in `provided` scope so that is available during compilation, so that the Micronaut annotation processor can
+    generate the corresponding beans, but it is not included in the final JAR since at runtime we will not use JPA but
+    Micronaut Data JDBC.
