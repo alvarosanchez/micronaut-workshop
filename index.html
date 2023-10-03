@@ -521,7 +521,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_clone_this_repository">Clone this repository</a></li>
 </ul>
 </li>
-<li><a href="#_application_architecture_todo">Application architecture TODO</a></li>
+<li><a href="#_application_architecture">Application architecture</a></li>
 <li><a href="#_getting_started_with_micronaut_and_graalvm_15_minutes">1. Getting started with Micronaut and GraalVM (15 minutes)</a>
 <ul class="sectlevel2">
 <li><a href="#_using_micronaut_launch_to_create_a_new_application_2_minutes">1.1. Using Micronaut Launch to create a new application (2 minutes)</a></li>
@@ -533,7 +533,12 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </li>
 <li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_15_minutes">2. Implementing a data access layer with Micronaut Data JDBC (15 minutes)</a>
 <ul class="sectlevel2">
-<li><a href="#_preparing_the_database_5_minutes">2.1. Preparing the database (5 minutes)</a></li>
+<li><a href="#_preparing_the_database_10_minutes">2.1. Preparing the database (10 minutes)</a></li>
+<li><a href="#_implementing_the_data_access_layer_20_minutes">2.2. Implementing the data access layer (20 minutes)</a>
+<ul class="sectlevel3">
+<li><a href="#_creating_the_entity_model_and_repository_10_minutes">2.2.1. Creating the entity model and repository (10 minutes)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -606,7 +611,7 @@ OpenJDK 64-Bit Server VM GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12, m
 <div class="paragraph">
 <p>Once done, you can clone this repo:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
 <pre>git clone https://github.com/alvarosanchez/micronaut-workshop.git</pre>
 </div>
@@ -618,7 +623,8 @@ OpenJDK 64-Bit Server VM GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12, m
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You will find each lab&#8217;s template files on each <code>labNN</code> folder. Solution is always inside a <code>solution</code> folder. To highlight the actions you actually need to perform, an icon is used: <span class="icon"><i class="fa fa-hand-o-right"></i></span>
+You will find each lab&#8217;s template files on each <code>labNN</code> folder. Solution is always inside a <code>solution</code> folder.
+To highlight the actions you actually need to perform, an icon is used: <span class="icon"><i class="fa fa-hand-o-right"></i></span>
 </td>
 </tr>
 </table>
@@ -627,7 +633,7 @@ You will find each lab&#8217;s template files on each <code>labNN</code> folder.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_application_architecture_todo">Application architecture TODO</h2>
+<h2 id="_application_architecture">Application architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Throughout this workshop, you will be creating a football (soccer) management system.</p>
@@ -640,14 +646,7 @@ You will find each lab&#8217;s template files on each <code>labNN</code> folder.
 <div class="ulist">
 <ul>
 <li>
-<p><code>clubs</code> is the microservice responsible for managing clubs. It uses Hibernate
-as a data access layer.</p>
-</li>
-<li>
-<p><code>fixtures</code> manages all game fixtures, storing its data in MongoDB. For the
-teams playing in a game, it doesn&#8217;t store their full details, but rather their
-ID. It has a service-discovery-enabled HTTP client to fetch club details from
-the <code>clubs</code> microservice.</p>
+<p><code>clubs</code> is the microservice responsible for managing clubs. It uses Micronaut Data JPA as a data access layer.</p>
 </li>
 </ul>
 </div>
@@ -750,11 +749,9 @@ Micronaut applications can also be run from the IDE. Refer to the <a href="https
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create a new controller with a single endpoint <code>/hello/{name}</code> that returns a greeting message using
 the provided path variable.</p>
 </div>
-<div class="paragraph">
-<p> <details><summary> 
-Click to expand
- </summary><div> </p>
-</div>
+<details>
+<summary class="title">Click to expand</summary>
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@Controller</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
@@ -781,11 +778,12 @@ Click to expand
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>The <code>name</code> parameter matches the path variable in the route. A typo in either of them will result in a compilation
-error.
- </div></details> </td>
+error.</td>
 </tr>
 </table>
 </div>
+</div>
+</details>
 </div>
 <div class="sect2">
 <h3 id="_testing_the_application_5_minutes">1.4. Testing the application (5 minutes)</h3>
@@ -811,11 +809,9 @@ and convenient way to write functional tests using the <a href="https://micronau
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Open <code>src/test/java/com/example/micronaut/HelloTest.java</code> and add a new test that asserts that the
 <code>/hello/{name}</code> endpoint returns a greeting message.</p>
 </div>
-<div class="paragraph">
-<p> <details><summary> 
-Click to expand
- </summary><div> </p>
-</div>
+<details>
+<summary class="title">Click to expand</summary>
+<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@MicronautTest</span>
@@ -849,9 +845,8 @@ Click to expand
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p> </div></details> </p>
 </div>
+</details>
 <div class="paragraph">
 <p>Before running the test, let&#8217;s add a Logback logger to see the details of the HTTP client.</p>
 </div>
@@ -936,7 +931,7 @@ convenient way to create repositories that can be used to perform CRUD operation
 <a href="https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/">Micronaut Test Resources</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="_preparing_the_database_5_minutes">2.1. Preparing the database (5 minutes)</h3>
+<h3 id="_preparing_the_database_10_minutes">2.1. Preparing the database (10 minutes)</h3>
 <div class="paragraph">
 <p>Before going any further, make sure you have a recent version of <code>postgres:latest</code> pulled in your Docker environment.</p>
 </div>
@@ -955,11 +950,9 @@ convenient way to create repositories that can be used to perform CRUD operation
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following migration files:</p>
 </div>
-<div class="paragraph">
-<p> <details><summary> 
-Click to expand
- </summary><div> </p>
-</div>
+<details>
+<summary class="title">Click to expand</summary>
+<div class="content">
 <div class="listingblock">
 <div class="title"><code>src/main/resources/db/migration/V1__schema.sql</code></div>
 <div class="content">
@@ -981,9 +974,8 @@ Click to expand
 <span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Inter Milan&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Giuseppe Meazza&#39;</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p> </div></details> </p>
 </div>
+</details>
 <div class="paragraph">
 <p>At this point, you should be able to run the application and see if the migrations are applied. When using the
 Micronaut Maven Plugin&#8217;s <code>mn:run</code> goal, a Test Resources service will be started automatically, so that required
@@ -1020,12 +1012,84 @@ containers are run before the application is running.</p>
 functional tests.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_implementing_the_data_access_layer_20_minutes">2.2. Implementing the data access layer (20 minutes)</h3>
+<div class="paragraph">
+<p>For the data access layer, we are going to use the <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#jdbc">Micronaut Data</a> library in its JDBC flavour. In the source code, we will use
+standard JPA annotations.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Add the following dependency:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span></span><span class="tok-nt">&lt;dependency&gt;</span>
+<span class="tok-w">  </span><span class="tok-nt">&lt;groupId&gt;</span>jakarta.persistence<span class="tok-nt">&lt;/groupId&gt;</span>
+<span class="tok-w">  </span><span class="tok-nt">&lt;artifactId&gt;</span>jakarta.persistence-api<span class="tok-nt">&lt;/artifactId&gt;</span>
+<span class="tok-w">  </span><span class="tok-nt">&lt;scope&gt;</span>provided<span class="tok-nt">&lt;/scope&gt;</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-nt">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>It is in <code>provided</code> scope so that is available during compilation, so that the Micronaut annotation processor can
+generate the corresponding beans, but it is not included in the final JAR since at runtime we will not use JPA but
+Micronaut Data JDBC.</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_creating_the_entity_model_and_repository_10_minutes">2.2.1. Creating the entity model and repository (10 minutes)</h4>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following entity model:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/entity-model.png" alt="entity model">
+</div>
+</div>
+<div class="paragraph">
+<p>We can write a simple test to make sure everything is working as expected.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following test:</p>
+</div>
+<details>
+<summary class="title">Click to expand</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@MicronautTest</span>
+<span class="tok-kd">class</span> <span class="tok-nc">ClubRepositoryTest</span><span class="tok-w"> </span><span class="tok-p">{</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Test</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItWorks</span><span class="tok-p">(</span><span class="tok-n">ClubRepository</span><span class="tok-w"> </span><span class="tok-n">clubRepository</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-w">        </span><span class="tok-kt">long</span><span class="tok-w"> </span><span class="tok-n">clubCount</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">clubRepository</span><span class="tok-p">.</span><span class="tok-na">count</span><span class="tok-p">();</span>
+<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">clubCount</span><span class="tok-p">);</span>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Micronaut can inject dependencies in test methods.</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-03 08:26:30 +0200
+Last updated 2023-10-03 09:44:49 +0200
 </div>
 </div>
 </body>
