@@ -9,7 +9,7 @@ convenient way to create repositories that can be used to perform CRUD operation
 For development and testing on a real database, we are going to use https://www.postgresql.org/[PostgreSQL] via
 https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/[Micronaut Test Resources].
 
-=== Preparing the database (15 minutes)
+=== Preparing the project (15 minutes)
 
 Before going any further, make sure you have a recent version of `postgres:latest` pulled in your Docker environment.
 
@@ -17,7 +17,13 @@ icon:hand-o-right[] Execute the following command
 
   docker pull postgres:latest
 
-Also, to setup the schema and add some sample data, we are going to use https://flywaydb.org/[Flyway] via its
+icon:hand-o-right[] Now, create a new application:
+
+    curl 'https://launch.micronaut.io/create/default/com.example.micronaut..clubs?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_17&features=graalvm&features=data-jdbc&features=postgres&features=flyway' --output clubs.zip
+
+icon:hand-o-right[] Unzip `clubs.zip` and import the project in your IDE.
+
+Also, to set up the schema and add some sample data, we are going to use https://flywaydb.org/[Flyway] via its
 https://github.com/micronaut-projects/micronaut-flyway[Micronaut Flyway integration].
 
 icon:hand-o-right[] Create the following migration files:
