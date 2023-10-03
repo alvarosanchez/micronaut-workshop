@@ -1,4 +1,4 @@
-== Implementing a data access layer with Micronaut Data JDBC (45 minutes)
+== Implementing a data access layer with Micronaut Data JDBC (60 minutes)
 
 TIP: Change to the `lab02` directory to work on this exercise
 
