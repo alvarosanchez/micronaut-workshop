@@ -44,9 +44,9 @@ TIP: Micronaut applications can also be run from the IDE. Refer to the https://d
 icon:hand-o-right[] Create a new controller with a single endpoint `/hello/{name}` that returns a greeting message using
 the provided path variable.
 
-+++ <details><summary> +++
-Click to expand
-+++ </summary><div> +++
+.Click to expand
+[%collapsible]
+====
 [source,java]
 ----
 include::./lab01/solution/hello/src/main/java/com/example/micronaut/HelloController.java[tag=class]
@@ -55,7 +55,7 @@ include::./lab01/solution/hello/src/main/java/com/example/micronaut/HelloControl
 <2> The `@Get` annotation marks this method as a `GET` endpoint on the `/hello/{name}` route
 <3> The `name` parameter matches the path variable in the route. A typo in either of them will result in a compilation
 error.
-+++ </div></details> +++
+====
 
 === Testing the application (5 minutes)
 
@@ -73,16 +73,16 @@ Generated applications include a sample test that asserts that the application s
 icon:hand-o-right[] Open `src/test/java/com/example/micronaut/HelloTest.java` and add a new test that asserts that the
 `/hello/{name}` endpoint returns a greeting message.
 
-+++ <details><summary> +++
-Click to expand
-+++ </summary><div> +++
+.Click to expand
+[%collapsible]
+====
 [source,java]
 ----
 include::./lab01/solution/hello/src/test/java/com/example/micronaut/HelloTest.java[tag=test]
 ----
 <1> The `@Client("/")` annotation will inject an HTTP client connected to the embedded server random port.
 
-+++ </div></details> +++
+====
 
 Before running the test, let's add a Logback logger to see the details of the HTTP client.
 

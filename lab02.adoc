@@ -22,10 +22,9 @@ https://github.com/micronaut-projects/micronaut-flyway[Micronaut Flyway integrat
 
 icon:hand-o-right[] Create the following migration files:
 
-+++ <details><summary> +++
-Click to expand
-+++ </summary><div> +++
-
+.Click to expand
+[%collapsible]
+====
 .`src/main/resources/db/migration/V1__schema.sql`
 [source,sql]
 ----
@@ -37,7 +36,7 @@ include::./lab02/solution/clubs/src/main/resources/db/migration/V1__schema.sql[]
 ----
 include::./lab02/solution/clubs/src/main/resources/db/migration/V2__data.sql[]
 ----
-+++ </div></details> +++
+====
 
 At this point, you should be able to run the application and see if the migrations are applied. When using the
 Micronaut Maven Plugin's `mn:run` goal, a Test Resources service will be started automatically, so that required
@@ -81,3 +80,50 @@ include::./lab02/solution/clubs/pom.xml[tag=jpa,indent=0]
 <1> It is in `provided` scope so that is available during compilation, so that the Micronaut annotation processor can
     generate the corresponding beans, but it is not included in the final JAR since at runtime we will not use JPA but
     Micronaut Data JDBC.
+
+==== Creating the entity model and repository (10 minutes)
+
+icon:hand-o-right[] Create the following entity model:
+
+ifdef::generate-diagrams[]
+[plantuml, entity-model, png]
+....
+entity Club <<record>> {
+  id: Long
+  name: String
+  stadium: String
+}
+note top of Club
+  @Entity
+  @Serdeable
+end note
+note right of Club::id
+  @Id
+  @GeneratedValue
+end note
+
+interface CrudRepository {}
+interface ClubRepository<Club, Long> {}
+note top of ClubRepository
+  @JdbcRepository(dialect = Dialect.POSTGRES)
+end note
+CrudRepository <|-- ClubRepository
+ClubRepository -- Club : uses
+....
+endif::[]
+
+image::entity-model.png[]
+
+We can write a simple test to make sure everything is working as expected.
+
+icon:hand-o-right[] Create the following test:
+
+.Click to expand
+[%collapsible]
+====
+[source,java]
+----
+include::./lab02/solution/clubs/src/test/java/com/example/micronaut/ClubRepositoryTest.java[tag=test]
+----
+<1> Micronaut can inject dependencies in test methods.
+====
