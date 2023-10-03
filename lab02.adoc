@@ -19,7 +19,7 @@ icon:hand-o-right[] Execute the following command
 
 icon:hand-o-right[] Now, create a new application:
 
-    curl 'https://launch.micronaut.io/create/default/com.example.micronaut..clubs?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_17&features=graalvm&features=data-jdbc&features=postgres&features=flyway' --output clubs.zip
+    curl 'https://launch.micronaut.io/create/default/com.example.micronaut.clubs?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_17&features=graalvm&features=data-jdbc&features=postgres&features=flyway' --output clubs.zip
 
 icon:hand-o-right[] Unzip `clubs.zip` and import the project in your IDE.
 
