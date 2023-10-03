@@ -531,11 +531,12 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_generating_a_native_executable_5_minutes">1.5. Generating a native executable (5 minutes)</a></li>
 </ul>
 </li>
-<li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_45_minutes">2. Implementing a data access layer with Micronaut Data JDBC (45 minutes)</a>
+<li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_60_minutes">2. Implementing a data access layer with Micronaut Data JDBC (60 minutes)</a>
 <ul class="sectlevel2">
-<li><a href="#_preparing_the_database_15_minutes">2.1. Preparing the database (15 minutes)</a></li>
+<li><a href="#_preparing_the_project_15_minutes">2.1. Preparing the project (15 minutes)</a></li>
 <li><a href="#_implementing_the_data_access_layer_15_minutes">2.2. Implementing the data access layer (15 minutes)</a></li>
 <li><a href="#_implementing_the_rest_api_15_minutes">2.3. Implementing the REST API (15 minutes)</a></li>
+<li><a href="#_completing_the_rest_api_15_minutes">2.4. Completing the REST API (15 minutes)</a></li>
 </ul>
 </li>
 </ul>
@@ -904,7 +905,7 @@ self-contained executable that can be run without a JVM.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_implementing_a_data_access_layer_with_micronaut_data_jdbc_45_minutes">2. Implementing a data access layer with Micronaut Data JDBC (45 minutes)</h2>
+<h2 id="_implementing_a_data_access_layer_with_micronaut_data_jdbc_60_minutes">2. Implementing a data access layer with Micronaut Data JDBC (60 minutes)</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -928,7 +929,7 @@ convenient way to create repositories that can be used to perform CRUD operation
 <a href="https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/">Micronaut Test Resources</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="_preparing_the_database_15_minutes">2.1. Preparing the database (15 minutes)</h3>
+<h3 id="_preparing_the_project_15_minutes">2.1. Preparing the project (15 minutes)</h3>
 <div class="paragraph">
 <p>Before going any further, make sure you have a recent version of <code>postgres:latest</code> pulled in your Docker environment.</p>
 </div>
@@ -941,7 +942,18 @@ convenient way to create repositories that can be used to perform CRUD operation
 </div>
 </div>
 <div class="paragraph">
-<p>Also, to setup the schema and add some sample data, we are going to use <a href="https://flywaydb.org/">Flyway</a> via its
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Now, create a new application:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl 'https://launch.micronaut.io/create/default/com.example.micronaut..clubs?lang=JAVA&amp;build=MAVEN&amp;test=JUNIT&amp;javaVersion=JDK_17&amp;features=graalvm&amp;features=data-jdbc&amp;features=postgres&amp;features=flyway' --output clubs.zip</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Unzip <code>clubs.zip</code> and import the project in your IDE.</p>
+</div>
+<div class="paragraph">
+<p>Also, to set up the schema and add some sample data, we are going to use <a href="https://flywaydb.org/">Flyway</a> via its
 <a href="https://github.com/micronaut-projects/micronaut-flyway">Micronaut Flyway integration</a>.</p>
 </div>
 <div class="paragraph">
@@ -1105,7 +1117,9 @@ attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated 
 <ul>
 <li>
 <p><code>ClubApi</code> is an API contract with REST operations. It will be implemented by <code>ClubController</code>, and a <code>ClubClient</code> we
-will create later.</p>
+will create later. For each method annotated with <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code>, etc., Micronaut will figure out
+how to render the corresponding JSON response based on the return type, which can be POJOs or collections of POJOs,
+or wrapped in <code>HttpResponse</code> when we need to customize the response (header, response codes, etc).</p>
 </li>
 <li>
 <p><code>ClubController</code> is a Micronaut controller. It is annotated with <code>@Controller</code>, and uses <code>ClubRepository</code> to implement
@@ -1132,14 +1146,14 @@ going to use a declarative client. For this, we are going to leverage the <code>
 <span class="tok-w">    </span><span class="tok-n">ClubClient</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">;</span><span class="tok-w"> </span><i class="conum" data-value="2"></i><b>(2)</b>
 
 <span class="tok-w">    </span><span class="tok-nd">@Test</span>
-<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanListTeams</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanListClubs</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
 <span class="tok-w">        </span><span class="tok-n">Iterable</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-n">clubs</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">list</span><span class="tok-p">();</span>
 
 <span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-p">((</span><span class="tok-n">Collection</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-p">)</span><span class="tok-n">clubs</span><span class="tok-p">).</span><span class="tok-na">size</span><span class="tok-p">());</span>
 <span class="tok-w">    </span><span class="tok-p">}</span>
 
 <span class="tok-w">    </span><span class="tok-nd">@Test</span>
-<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanGetATeam</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanGetAClub</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
 <span class="tok-w">        </span><span class="tok-n">HttpResponse</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">get</span><span class="tok-p">(</span><span class="tok-mi">1L</span><span class="tok-p">);</span>
 
 <span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">200</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-na">code</span><span class="tok-p">());</span>
@@ -1147,6 +1161,11 @@ going to use a declarative client. For this, we are going to leverage the <code>
 <span class="tok-w">        </span><span class="tok-n">Club</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-na">body</span><span class="tok-p">();</span>
 <span class="tok-w">        </span><span class="tok-n">assertNotNull</span><span class="tok-p">(</span><span class="tok-n">club</span><span class="tok-p">);</span>
 <span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-s">&quot;Real Madrid&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">.</span><span class="tok-na">name</span><span class="tok-p">());</span>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Test</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">itReturnsNotFoundForUnknownClub</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">404</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">get</span><span class="tok-p">(</span><span class="tok-mi">100L</span><span class="tok-p">).</span><span class="tok-na">code</span><span class="tok-p">());</span>
 <span class="tok-w">    </span><span class="tok-p">}</span>
 
 <span class="tok-w">    </span><span class="tok-nd">@Client</span><span class="tok-p">(</span><span class="tok-s">&quot;/clubs&quot;</span><span class="tok-p">)</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
@@ -1169,13 +1188,47 @@ generated by Micronaut at compile time.</td>
 </div>
 </div>
 </details>
+<div class="paragraph">
+<p>In order to see the HTTP requests and responses, and also the SQL queries, we can declare the following loggers:</p>
+</div>
+<div class="listingblock">
+<div class="title"><code>src/main/resources/logback.xml</code></div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span></span><span class="tok-nt">&lt;logger</span><span class="tok-w"> </span><span class="tok-na">name=</span><span class="tok-s">&quot;io.micronaut.data.query&quot;</span><span class="tok-w"> </span><span class="tok-na">level=</span><span class="tok-s">&quot;trace&quot;</span><span class="tok-w"> </span><span class="tok-nt">/&gt;</span>
+<span class="tok-nt">&lt;logger</span><span class="tok-w"> </span><span class="tok-na">name=</span><span class="tok-s">&quot;io.micronaut.http.client&quot;</span><span class="tok-w"> </span><span class="tok-na">level=</span><span class="tok-s">&quot;trace&quot;</span><span class="tok-w"> </span><span class="tok-nt">/&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_completing_the_rest_api_15_minutes">2.4. Completing the REST API (15 minutes)</h3>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Using the knowledge acquired in the previous exercises, you can now complete the REST API by implementing the following
+endpoints:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>POST /clubs</code>: creates a new club.</p>
+</li>
+<li>
+<p><code>PUT /clubs/{id}</code>: updates an existing club.</p>
+</li>
+<li>
+<p><code>DELETE /clubs/{id}</code>: deletes an existing club.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Augment the functional test to cover the new endpoints. Test also negative cases such as providing
+non-existing IDs, or invalid payloads.</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-03 10:20:03 +0200
+Last updated 2023-10-03 10:55:25 +0200
 </div>
 </div>
 </body>
