@@ -522,23 +522,20 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </ul>
 </li>
 <li><a href="#_application_architecture">Application architecture</a></li>
-<li><a href="#_getting_started_with_micronaut_and_graalvm_15_minutes">1. Getting started with Micronaut and GraalVM (15 minutes)</a>
+<li><a href="#_getting_started_with_micronaut_and_graalvm_20_minutes">1. Getting started with Micronaut and GraalVM (20 minutes)</a>
 <ul class="sectlevel2">
-<li><a href="#_using_micronaut_launch_to_create_a_new_application_2_minutes">1.1. Using Micronaut Launch to create a new application (2 minutes)</a></li>
-<li><a href="#_running_the_application_with_the_micronaut_maven_plugin_2_minutes">1.2. Running the application with the Micronaut Maven Plugin (2 minutes)</a></li>
-<li><a href="#_creating_a_hello_world_controller_2_minutes">1.3. Creating a Hello World controller (2 minutes)</a></li>
+<li><a href="#_using_micronaut_launch_to_create_a_new_application_3_minutes">1.1. Using Micronaut Launch to create a new application (3 minutes)</a></li>
+<li><a href="#_running_the_application_with_the_micronaut_maven_plugin_3_minutes">1.2. Running the application with the Micronaut Maven Plugin (3 minutes)</a></li>
+<li><a href="#_creating_a_hello_world_controller_3_minutes">1.3. Creating a Hello World controller (3 minutes)</a></li>
 <li><a href="#_testing_the_application_5_minutes">1.4. Testing the application (5 minutes)</a></li>
 <li><a href="#_generating_a_native_executable_5_minutes">1.5. Generating a native executable (5 minutes)</a></li>
 </ul>
 </li>
-<li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_15_minutes">2. Implementing a data access layer with Micronaut Data JDBC (15 minutes)</a>
+<li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_45_minutes">2. Implementing a data access layer with Micronaut Data JDBC (45 minutes)</a>
 <ul class="sectlevel2">
-<li><a href="#_preparing_the_database_10_minutes">2.1. Preparing the database (10 minutes)</a></li>
-<li><a href="#_implementing_the_data_access_layer_20_minutes">2.2. Implementing the data access layer (20 minutes)</a>
-<ul class="sectlevel3">
-<li><a href="#_creating_the_entity_model_and_repository_10_minutes">2.2.1. Creating the entity model and repository (10 minutes)</a></li>
-</ul>
-</li>
+<li><a href="#_preparing_the_database_15_minutes">2.1. Preparing the database (15 minutes)</a></li>
+<li><a href="#_implementing_the_data_access_layer_15_minutes">2.2. Implementing the data access layer (15 minutes)</a></li>
+<li><a href="#_implementing_the_rest_api_15_minutes">2.3. Implementing the REST API (15 minutes)</a></li>
 </ul>
 </li>
 </ul>
@@ -653,7 +650,7 @@ To highlight the actions you actually need to perform, an icon is used: <span cl
 </div>
 </div>
 <div class="sect1">
-<h2 id="_getting_started_with_micronaut_and_graalvm_15_minutes">1. Getting started with Micronaut and GraalVM (15 minutes)</h2>
+<h2 id="_getting_started_with_micronaut_and_graalvm_20_minutes">1. Getting started with Micronaut and GraalVM (20 minutes)</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -684,7 +681,7 @@ Change to the <code>lab01</code> directory to work on this exercise
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_using_micronaut_launch_to_create_a_new_application_2_minutes">1.1. Using Micronaut Launch to create a new application (2 minutes)</h3>
+<h3 id="_using_micronaut_launch_to_create_a_new_application_3_minutes">1.1. Using Micronaut Launch to create a new application (3 minutes)</h3>
 <div class="paragraph">
 <p>We will use the third option, so that you can copy/paste the commands.</p>
 </div>
@@ -713,7 +710,7 @@ application in different ways, such as adding build dependencies, configuration 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_running_the_application_with_the_micronaut_maven_plugin_2_minutes">1.2. Running the application with the Micronaut Maven Plugin (2 minutes)</h3>
+<h3 id="_running_the_application_with_the_micronaut_maven_plugin_3_minutes">1.2. Running the application with the Micronaut Maven Plugin (3 minutes)</h3>
 <div class="paragraph">
 <p>The <a href="https://github.com/micronaut-projects/micronaut-maven-plugin">Micronaut Maven Plugin</a> provides a convenient way to
 run your application from the command line.</p>
@@ -744,7 +741,7 @@ Micronaut applications can also be run from the IDE. Refer to the <a href="https
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_hello_world_controller_2_minutes">1.3. Creating a Hello World controller (2 minutes)</h3>
+<h3 id="_creating_a_hello_world_controller_3_minutes">1.3. Creating a Hello World controller (3 minutes)</h3>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create a new controller with a single endpoint <code>/hello/{name}</code> that returns a greeting message using
 the provided path variable.</p>
@@ -907,7 +904,7 @@ self-contained executable that can be run without a JVM.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_implementing_a_data_access_layer_with_micronaut_data_jdbc_15_minutes">2. Implementing a data access layer with Micronaut Data JDBC (15 minutes)</h2>
+<h2 id="_implementing_a_data_access_layer_with_micronaut_data_jdbc_45_minutes">2. Implementing a data access layer with Micronaut Data JDBC (45 minutes)</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -931,7 +928,7 @@ convenient way to create repositories that can be used to perform CRUD operation
 <a href="https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/">Micronaut Test Resources</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="_preparing_the_database_10_minutes">2.1. Preparing the database (10 minutes)</h3>
+<h3 id="_preparing_the_database_15_minutes">2.1. Preparing the database (15 minutes)</h3>
 <div class="paragraph">
 <p>Before going any further, make sure you have a recent version of <code>postgres:latest</code> pulled in your Docker environment.</p>
 </div>
@@ -1013,7 +1010,7 @@ functional tests.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_implementing_the_data_access_layer_20_minutes">2.2. Implementing the data access layer (20 minutes)</h3>
+<h3 id="_implementing_the_data_access_layer_15_minutes">2.2. Implementing the data access layer (15 minutes)</h3>
 <div class="paragraph">
 <p>For the data access layer, we are going to use the <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#jdbc">Micronaut Data</a> library in its JDBC flavour. In the source code, we will use
 standard JPA annotations.</p>
@@ -1040,8 +1037,6 @@ Micronaut Data JDBC.</td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_creating_the_entity_model_and_repository_10_minutes">2.2.1. Creating the entity model and repository (10 minutes)</h4>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following entity model:</p>
 </div>
@@ -1049,6 +1044,19 @@ Micronaut Data JDBC.</td>
 <div class="content">
 <img src="./images/entity-model.png" alt="entity model">
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Club</code> is a JPA entity, so it is annotated with <code>@Entity</code>. It is also annotated with <code>@Serdeable</code> so that it can be
+serialized and deserialized by Micronaut Serialization.</p>
+</li>
+<li>
+<p><code>ClubRepository</code> is a Micronaut Data JDBC repository. It extends <code>CrudRepository</code> so that it inherits the basic CRUD
+operations. It is annotated with <code>@JdbcRepository</code> so that it is recognized by Micronaut Data JDBC. The <code>dialect</code>
+attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated at compile time work with PostgreSQL.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>We can write a simple test to make sure everything is working as expected.</p>
@@ -1083,13 +1091,91 @@ Micronaut Data JDBC.</td>
 </div>
 </details>
 </div>
+<div class="sect2">
+<h3 id="_implementing_the_rest_api_15_minutes">2.3. Implementing the REST API (15 minutes)</h3>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following REST API:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/rest-api.png" alt="rest api">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ClubApi</code> is an API contract with REST operations. It will be implemented by <code>ClubController</code>, and a <code>ClubClient</code> we
+will create later.</p>
+</li>
+<li>
+<p><code>ClubController</code> is a Micronaut controller. It is annotated with <code>@Controller</code>, and uses <code>ClubRepository</code> to implement
+the operations.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We can now write a functional test for this REST API. In this case, instead of using the low-level HTTP client, we are
+going to use a declarative client. For this, we are going to leverage the <code>ClubApi</code> interface we have just created.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following test:</p>
+</div>
+<details>
+<summary class="title">Click to expand</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@MicronautTest</span>
+<span class="tok-kd">class</span> <span class="tok-nc">ClubControllerTest</span><span class="tok-w"> </span><span class="tok-p">{</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Inject</span>
+<span class="tok-w">    </span><span class="tok-n">ClubClient</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">;</span><span class="tok-w"> </span><i class="conum" data-value="2"></i><b>(2)</b>
+
+<span class="tok-w">    </span><span class="tok-nd">@Test</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanListTeams</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">        </span><span class="tok-n">Iterable</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-n">clubs</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">list</span><span class="tok-p">();</span>
+
+<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-p">((</span><span class="tok-n">Collection</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-p">)</span><span class="tok-n">clubs</span><span class="tok-p">).</span><span class="tok-na">size</span><span class="tok-p">());</span>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Test</span>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanGetATeam</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
+<span class="tok-w">        </span><span class="tok-n">HttpResponse</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">get</span><span class="tok-p">(</span><span class="tok-mi">1L</span><span class="tok-p">);</span>
+
+<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">200</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-na">code</span><span class="tok-p">());</span>
+
+<span class="tok-w">        </span><span class="tok-n">Club</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-na">body</span><span class="tok-p">();</span>
+<span class="tok-w">        </span><span class="tok-n">assertNotNull</span><span class="tok-p">(</span><span class="tok-n">club</span><span class="tok-p">);</span>
+<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-s">&quot;Real Madrid&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">.</span><span class="tok-na">name</span><span class="tok-p">());</span>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Client</span><span class="tok-p">(</span><span class="tok-s">&quot;/clubs&quot;</span><span class="tok-p">)</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-w">    </span><span class="tok-kd">interface</span> <span class="tok-nc">ClubClient</span><span class="tok-w"> </span><span class="tok-kd">extends</span><span class="tok-w"> </span><span class="tok-n">ClubApi</span><span class="tok-w"> </span><span class="tok-p">{}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>@Client</code> annotation is mapped to the same path as the controller. The implementation of this interface will be
+generated by Micronaut at compile time.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>@Inject</code> annotation is used to inject an instance of the generated client.</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-03 09:44:49 +0200
+Last updated 2023-10-03 10:20:03 +0200
 </div>
 </div>
 </body>
