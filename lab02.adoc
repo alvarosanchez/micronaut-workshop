@@ -19,58 +19,44 @@ icon:hand-o-right[] Execute the following command
 
 icon:hand-o-right[] Now, create a new application:
 
-    curl 'https://launch.micronaut.io/create/default/com.example.micronaut.clubs?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_17&features=graalvm&features=data-jdbc&features=postgres&features=flyway' --output clubs.zip
+    curl 'https://launch.micronaut.io/create/default/com.example.micronaut.clubs?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_21&features=graalvm&features=data-jdbc&features=postgres' --output clubs.zip
 
 icon:hand-o-right[] Unzip `clubs.zip` and import the project in your IDE.
 
-Also, to set up the schema and add some sample data, we are going to use https://flywaydb.org/[Flyway] via its
-https://github.com/micronaut-projects/micronaut-flyway[Micronaut Flyway integration].
+Also, to set up the schema and add some sample data, we are going to use
+https://micronaut-projects.github.io/micronaut-test/latest/guide/#sql[Micronaut Test's `@Sql`] annotation.
 
 icon:hand-o-right[] Create the following migration files:
 
 .Click to expand
 [%collapsible]
 ====
-.`src/main/resources/db/migration/V1__schema.sql`
+.`src/main/resources/create.sql`
 [source,sql]
 ----
-include::./lab02/solution/clubs/src/main/resources/db/migration/V1__schema.sql[]
+include::./lab02/solution/clubs/src/main/resources/create.sql[]
 ----
 
-.`src/main/resources/db/migration/V2__data.sql`
+.`src/main/resources/data.sql`
 [source,sql]
 ----
-include::./lab02/solution/clubs/src/main/resources/db/migration/V2__data.sql[]
+include::./lab02/solution/clubs/src/main/resources/data.sql[]
+----
+
+.`src/main/resources/clean.sql`
+[source,sql]
+----
+include::./lab02/solution/clubs/src/main/resources/clean.sql[]
 ----
 ====
 
-At this point, you should be able to run the application and see if the migrations are applied. When using the
-Micronaut Maven Plugin's `mn:run` goal, a Test Resources service will be started automatically, so that required
-containers are run before the application is running.
+Also, to prevent Micronaut Data's built-in schema generation to conflict with the schema we are going to create, you need
+to remove the following line from `application.properties`:
 
-icon:hand-o-right[] Execute the following command
-
-  ./mvnw mn:run
-
-You should see the following output:
-
-[source,console]
+[source,properties]
 ----
-...
-[info] Starting Micronaut Test Resources service, version 2.0.0
-[test-resources-service] 08:10:56.830 [ForkJoinPool.commonPool-worker-9] INFO  i.m.t.e.TestResourcesResolverLoader - Loaded 2 test resources resolvers: io.micronaut.testresources.postgres.PostgreSQLTestResourceProvider, io.micronaut.testresources.testcontainers.GenericTestContainerProvider
-[test-resources-service] 08:10:57.048 [main] INFO  i.m.t.server.TestResourcesService - A Micronaut Test Resources server is listening on port 60231, started in 360ms
-...
-[test-resources-service] 08:10:57.803 [default-nioEventLoopGroup-1-2] INFO  i.m.t.testcontainers.TestContainers - Starting test container postgres
-...
-INFO: Migrating schema "public" to version "1 - schema"
-INFO: Migrating schema "public" to version "2 - data"
-INFO: Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.016s)
-...
+datasources.default.schema-generate=CREATE_DROP
 ----
-
-icon:hand-o-right[] Now, hit kbd:[Ctrl+C] to stop the application, since going forward it is going to be tested with
-functional tests.
 
 === Implementing the data access layer (15 minutes)
 
@@ -83,7 +69,7 @@ icon:hand-o-right[] Add the following dependency:
 ----
 include::./lab02/solution/clubs/pom.xml[tag=jpa,indent=0]
 ----
-<1> It is in `provided` scope so that is available during compilation, so that the Micronaut annotation processor can
+<1> It is in `provided` scope to make it available during compilation, so that the Micronaut annotation processor can
     generate the corresponding beans, but it is not included in the final JAR since at runtime we will not use JPA but
     Micronaut Data JDBC.
 
@@ -124,6 +110,11 @@ image::entity-model.png[]
     operations. It is annotated with `@JdbcRepository` so that it is recognized by Micronaut Data JDBC. The `dialect`
     attribute is set to `Dialect.POSTGRES` so that the queries generated at compile time work with PostgreSQL.
 
+WARNING: In a real-world application, you should not expose your JPA entities directly to the outside world. Instead, you
+should create DTOs (Data Transfer Objects) that represent the data you want to expose. This is a good practice to avoid
+leaking implementation details and to have more control over the data you expose. In this exercise, we are exposing the
+JPA entities directly for simplicity.
+
 We can write a simple test to make sure everything is working as expected.
 
 icon:hand-o-right[] Create the following test:
@@ -135,7 +126,8 @@ icon:hand-o-right[] Create the following test:
 ----
 include::./lab02/solution/clubs/src/test/java/com/example/micronaut/ClubRepositoryTest.java[tag=test]
 ----
-<1> Micronaut can inject dependencies in test methods.
+<1> The `@Sql` annotation is used to execute the SQL scripts before and after the test.
+<2> Micronaut can inject dependencies in test methods.
 ====
 
 === Implementing the REST API (15 minutes)
@@ -172,9 +164,13 @@ image::rest-api.png[]
 * `ClubApi` is an API contract with REST operations. It will be implemented by `ClubController`, and a `ClubClient` we
   will create later. For each method annotated with `@Get`, `@Post`, `@Put`, `@Delete`, etc., Micronaut will figure out
   how to render the corresponding JSON response based on the return type, which can be POJOs or collections of POJOs,
-  or wrapped in `HttpResponse` when we need to customize the response (header, response codes, etc).
+  or wrapped in `HttpResponse` when we need to customise the response (header, response codes, etc).
 * `ClubController` is a Micronaut controller. It is annotated with `@Controller`, and uses `ClubRepository` to implement
   the operations.
+
+WARNING: In a real-world scenario, a controller should not interact directly with a repository. Instead, it should use a
+service layer that encapsulates the business logic. This is a good practice to separate concerns and make the code more
+testable. In this exercise, we are using the repository directly for simplicity.
 
 We can now write a functional test for this REST API. In this case, instead of using the low-level HTTP client, we are
 going to use a declarative client. For this, we are going to leverage the `ClubApi` interface we have just created.

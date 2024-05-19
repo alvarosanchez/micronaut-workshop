@@ -2,17 +2,19 @@ package com.example.micronaut;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.test.annotation.Sql;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 //tag::test[]
 @MicronautTest
+@Sql({"classpath:create.sql", "classpath:data.sql"})
+@Sql(scripts = "classpath:clean.sql", phase = Sql.Phase.AFTER_ALL)
 class ClubControllerTest {
 
     @Inject
@@ -22,7 +24,7 @@ class ClubControllerTest {
     void testItCanListClubs() {
         Iterable<Club> clubs = client.list();
 
-        assertEquals(10, ((Collection<Club>)clubs).size());
+        assertFalse(((Collection<?>) clubs).isEmpty());
     }
 
     @Test

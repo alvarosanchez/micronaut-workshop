@@ -21,7 +21,7 @@ application in different ways, such as adding build dependencies, configuration 
 
 icon:hand-o-right[] Let's create a new application with the following command:
 
-  curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_17&features=graalvm' --output hello.zip
+  curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_21&features=graalvm' --output hello.zip
 
 You can now unzip the file and open the resulting folder in your IDE.
 

@@ -16,20 +16,20 @@ Introductory workshop about http://micronaut.io[Micronaut].
 
 In order to do this workshop, you need the following:
 
-* Linux, MacOS or Windows with WSL with shell access, and the following installed:
+* Linux, MacOS or Windows with WSL and shell access, with the following installed:
 - `curl`.
 - `wget`.
 - `unzip`.
 - `git`.
-* https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-17.0.8[GraalVM for JDK 17].
-- Recommended to be installed with https://sdkman.io[SDKMAN!]: `sdk install java 17.0.7-graalce`.
+* https://www.graalvm.org/downloads[Oracle GraalVM for JDK 21].
+- Recommended to be installed with https://sdkman.io[SDKMAN!]: `sdk install java 21.0.3-graal`.
 * A valid Docker environment with the following image pulled: `postgres:latest`.
-* Ensure that the current JDK is GraalVM for Java 17:
+* Ensure that the current JDK is GraalVM for Java 21:
 
-    java -version
-    openjdk version "17.0.7" 2023-04-18
-    OpenJDK Runtime Environment GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12)
-    OpenJDK 64-Bit Server VM GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12, mixed mode, sharing)
+    $ java -version
+    java version "21.0.3" 2024-04-16 LTS
+    Java(TM) SE Runtime Environment Oracle GraalVM 21.0.3+7.1 (build 21.0.3+7-LTS-jvmci-23.1-b37)
+    Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 21.0.3+7.1 (build 21.0.3+7-LTS-jvmci-23.1-b37, mixed mode, sharing)
 
 === Clone this repository
 
