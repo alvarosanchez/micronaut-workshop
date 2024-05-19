@@ -522,13 +522,14 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </ul>
 </li>
 <li><a href="#_application_architecture">Application architecture</a></li>
-<li><a href="#_getting_started_with_micronaut_and_graalvm_20_minutes">1. Getting started with Micronaut and GraalVM (20 minutes)</a>
+<li><a href="#_getting_started_with_micronaut_and_graalvm_30_minutes">1. Getting started with Micronaut and GraalVM (30 minutes)</a>
 <ul class="sectlevel2">
-<li><a href="#_using_micronaut_launch_to_create_a_new_application_3_minutes">1.1. Using Micronaut Launch to create a new application (3 minutes)</a></li>
-<li><a href="#_running_the_application_with_the_micronaut_maven_plugin_3_minutes">1.2. Running the application with the Micronaut Maven Plugin (3 minutes)</a></li>
-<li><a href="#_creating_a_hello_world_controller_3_minutes">1.3. Creating a Hello World controller (3 minutes)</a></li>
+<li><a href="#_using_micronaut_launch_to_create_a_new_application_5_minutes">1.1. Using Micronaut Launch to create a new application (5 minutes)</a></li>
+<li><a href="#_running_the_application_with_the_micronaut_maven_plugin_5_minutes">1.2. Running the application with the Micronaut Maven Plugin (5 minutes)</a></li>
+<li><a href="#_creating_a_hello_world_controller_5_minutes">1.3. Creating a Hello World controller (5 minutes)</a></li>
 <li><a href="#_testing_the_application_5_minutes">1.4. Testing the application (5 minutes)</a></li>
 <li><a href="#_generating_a_native_executable_5_minutes">1.5. Generating a native executable (5 minutes)</a></li>
+<li><a href="#_exploring_the_micronaut_control_panel_5_minutes">1.6. Exploring the Micronaut Control Panel (5 minutes)</a></li>
 </ul>
 </li>
 <li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_60_minutes">2. Implementing a data access layer with Micronaut Data JDBC (60 minutes)</a>
@@ -651,7 +652,7 @@ To highlight the actions you actually need to perform, an icon is used: <span cl
 </div>
 </div>
 <div class="sect1">
-<h2 id="_getting_started_with_micronaut_and_graalvm_20_minutes">1. Getting started with Micronaut and GraalVM (20 minutes)</h2>
+<h2 id="_getting_started_with_micronaut_and_graalvm_30_minutes">1. Getting started with Micronaut and GraalVM (30 minutes)</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -682,7 +683,7 @@ Change to the <code>lab01</code> directory to work on this exercise
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_using_micronaut_launch_to_create_a_new_application_3_minutes">1.1. Using Micronaut Launch to create a new application (3 minutes)</h3>
+<h3 id="_using_micronaut_launch_to_create_a_new_application_5_minutes">1.1. Using Micronaut Launch to create a new application (5 minutes)</h3>
 <div class="paragraph">
 <p>We will use the third option, so that you can copy/paste the commands.</p>
 </div>
@@ -703,7 +704,7 @@ application in different ways, such as adding build dependencies, configuration 
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&amp;build=MAVEN&amp;test=JUNIT&amp;javaVersion=JDK_21&amp;features=graalvm' --output hello.zip</pre>
+<pre>curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&amp;build=MAVEN&amp;test=JUNIT&amp;javaVersion=JDK_21&amp;features=graalvm&amp;features=control-panel' --output hello.zip</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -711,7 +712,7 @@ application in different ways, such as adding build dependencies, configuration 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_running_the_application_with_the_micronaut_maven_plugin_3_minutes">1.2. Running the application with the Micronaut Maven Plugin (3 minutes)</h3>
+<h3 id="_running_the_application_with_the_micronaut_maven_plugin_5_minutes">1.2. Running the application with the Micronaut Maven Plugin (5 minutes)</h3>
 <div class="paragraph">
 <p>The <a href="https://github.com/micronaut-projects/micronaut-maven-plugin">Micronaut Maven Plugin</a> provides a convenient way to
 run your application from the command line.</p>
@@ -742,7 +743,7 @@ Micronaut applications can also be run from the IDE. Refer to the <a href="https
 </div>
 </div>
 <div class="sect2">
-<h3 id="_creating_a_hello_world_controller_3_minutes">1.3. Creating a Hello World controller (3 minutes)</h3>
+<h3 id="_creating_a_hello_world_controller_5_minutes">1.3. Creating a Hello World controller (5 minutes)</h3>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create a new controller with a single endpoint <code>/hello/{name}</code> that returns a greeting message using
 the provided path variable.</p>
@@ -900,6 +901,17 @@ self-contained executable that can be run without a JVM.</p>
 <div class="content">
 <pre>curl http://localhost:8080/hello/World</pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exploring_the_micronaut_control_panel_5_minutes">1.6. Exploring the Micronaut Control Panel (5 minutes)</h3>
+<div class="paragraph">
+<p>The Micronaut Control Panel module provides a web UI that allows you to view and manage the state of your Micronaut
+application, typically in a development environment.</p>
+</div>
+<div class="paragraph">
+<p>The <code>control-panel</code> feature was added when we created the application using Micronaut Launch, so all you need to do is
+run the application and open a browser and navigate to <a href="http://localhost:8080/control-panel" class="bare">http://localhost:8080/control-panel</a></p>
 </div>
 </div>
 </div>
@@ -1245,7 +1257,7 @@ non-existing IDs, or invalid payloads.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-19 19:43:41 +0200
+Last updated 2024-05-19 19:48:23 +0200
 </div>
 </div>
 </body>
