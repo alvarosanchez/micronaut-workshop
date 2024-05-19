@@ -1,4 +1,4 @@
-== Getting started with Micronaut and GraalVM (30 minutes)
+== Getting started with Micronaut and GraalVM (35 minutes)
 
 TIP: Change to the `lab01` directory to work on this exercise
 
@@ -97,7 +97,28 @@ icon:hand-o-right[] Now you can run the test from your IDE or from the command l
 
   ./mvnw test
 
-=== Generating a native executable (5 minutes)
+=== Packaging the application into different formats (10 minutes)
+
+The Micronaut Maven Plugin provides a convenient way to package your application into different formats, such as a fat JAR,
+a Docker image, or a native executable. For more details, refer to the
+https://micronaut-projects.github.io/micronaut-maven-plugin/latest/examples/package.html[Packaging] section of the Micronaut
+Maven Plugin documentation.
+
+icon:hand-o-right[] To create a fat JAR, run:
+
+  ./mvnw package
+
+icon:hand-o-right[] Once finished, you can run the JAR:
+
+      java -jar target/hello-0.1.jar
+
+icon:hand-o-right[] To create a Docker image, run:
+
+    ./mvnw package -Dpackaging=docker
+
+icon:hand-o-right[] Once finished, you can run the Docker image:
+
+    docker run -p 8080:8080 hello
 
 Micronaut applications can be compiled to native executables using GraalVM. This allows you to create a single
 self-contained executable that can be run without a JVM.
