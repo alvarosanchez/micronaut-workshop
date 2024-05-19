@@ -127,3 +127,6 @@ The `control-panel` feature was added when we created the application using Micr
 run the application and open a browser and navigate to http://localhost:8080/control-panel[]
 
 image::https://micronaut-projects.github.io/micronaut-control-panel/latest/img/control-panel.png[]
+
+TIP: Check the https://micronaut-projects.github.io/micronaut-control-panel/latest/guide/[Micronaut Control Panel documentation]
+     for more details.
