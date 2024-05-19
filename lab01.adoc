@@ -1,4 +1,4 @@
-== Getting started with Micronaut and GraalVM (20 minutes)
+== Getting started with Micronaut and GraalVM (30 minutes)
 
 TIP: Change to the `lab01` directory to work on this exercise
 
@@ -8,7 +8,7 @@ There are multiple ways to create a new Micronaut application:
 2. Using the https://micronaut-projects.github.io/micronaut-starter/latest/guide/#installation[Micronaut `mn` CLI].
 3. Using `curl` against the `launch.micronaut.io` API to download a ZIP.
 
-=== Using Micronaut Launch to create a new application (3 minutes)
+=== Using Micronaut Launch to create a new application (5 minutes)
 
 We will use the third option, so that you can copy/paste the commands.
 
@@ -21,11 +21,11 @@ application in different ways, such as adding build dependencies, configuration 
 
 icon:hand-o-right[] Let's create a new application with the following command:
 
-  curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_21&features=graalvm' --output hello.zip
+  curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&build=MAVEN&test=JUNIT&javaVersion=JDK_21&features=graalvm&features=control-panel' --output hello.zip
 
 You can now unzip the file and open the resulting folder in your IDE.
 
-=== Running the application with the Micronaut Maven Plugin (3 minutes)
+=== Running the application with the Micronaut Maven Plugin (5 minutes)
 
 The https://github.com/micronaut-projects/micronaut-maven-plugin[Micronaut Maven Plugin] provides a convenient way to
 run your application from the command line.
@@ -39,7 +39,7 @@ restart the application when it detects changes in the source code.
 
 TIP: Micronaut applications can also be run from the IDE. Refer to the https://docs.micronaut.io/latest/guide/index.html#ideSetup[IDE Setup] section of the Micronaut documentation for more details.
 
-=== Creating a Hello World controller (3 minutes)
+=== Creating a Hello World controller (5 minutes)
 
 icon:hand-o-right[] Create a new controller with a single endpoint `/hello/{name}` that returns a greeting message using
 the provided path variable.
@@ -118,3 +118,10 @@ icon:hand-o-right[] Test the application again with `curl`:
 
   curl http://localhost:8080/hello/World
 
+=== Exploring the Micronaut Control Panel (5 minutes)
+
+The Micronaut Control Panel module provides a web UI that allows you to view and manage the state of your Micronaut
+application, typically in a development environment.
+
+The `control-panel` feature was added when we created the application using Micronaut Launch, so all you need to do is
+run the application and open a browser and navigate to http://localhost:8080/control-panel[]
