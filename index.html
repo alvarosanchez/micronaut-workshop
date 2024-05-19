@@ -560,7 +560,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="ulist">
 <ul>
 <li>
-<p>Linux, MacOS or Windows with WSL with shell access, and the following installed:</p>
+<p>Linux, MacOS or Windows with WSL and shell access, with the following installed:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -579,11 +579,11 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 </li>
 <li>
-<p><a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/jdk-17.0.8">GraalVM for JDK 17</a>.</p>
+<p><a href="https://www.graalvm.org/downloads">Oracle GraalVM for JDK 21</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Recommended to be installed with <a href="https://sdkman.io">SDKMAN!</a>: <code>sdk install java 17.0.7-graalce</code>.</p>
+<p>Recommended to be installed with <a href="https://sdkman.io">SDKMAN!</a>: <code>sdk install java 21.0.3-graal</code>.</p>
 </li>
 </ul>
 </div>
@@ -592,13 +592,13 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <p>A valid Docker environment with the following image pulled: <code>postgres:latest</code>.</p>
 </li>
 <li>
-<p>Ensure that the current JDK is GraalVM for Java 17:</p>
+<p>Ensure that the current JDK is GraalVM for Java 21:</p>
 <div class="literalblock">
 <div class="content">
-<pre>java -version
-openjdk version "17.0.7" 2023-04-18
-OpenJDK Runtime Environment GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12)
-OpenJDK 64-Bit Server VM GraalVM CE 17.0.7+7.1 (build 17.0.7+7-jvmci-23.0-b12, mixed mode, sharing)</pre>
+<pre>$ java -version
+java version "21.0.3" 2024-04-16 LTS
+Java(TM) SE Runtime Environment Oracle GraalVM 21.0.3+7.1 (build 21.0.3+7-LTS-jvmci-23.1-b37)
+Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 21.0.3+7.1 (build 21.0.3+7-LTS-jvmci-23.1-b37, mixed mode, sharing)</pre>
 </div>
 </div>
 </li>
@@ -703,7 +703,7 @@ application in different ways, such as adding build dependencies, configuration 
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&amp;build=MAVEN&amp;test=JUNIT&amp;javaVersion=JDK_17&amp;features=graalvm' --output hello.zip</pre>
+<pre>curl 'https://launch.micronaut.io/create/default/com.example.micronaut.hello?lang=JAVA&amp;build=MAVEN&amp;test=JUNIT&amp;javaVersion=JDK_21&amp;features=graalvm' --output hello.zip</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -946,15 +946,15 @@ convenient way to create repositories that can be used to perform CRUD operation
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>curl 'https://launch.micronaut.io/create/default/com.example.micronaut.clubs?lang=JAVA&amp;build=MAVEN&amp;test=JUNIT&amp;javaVersion=JDK_17&amp;features=graalvm&amp;features=data-jdbc&amp;features=postgres&amp;features=flyway' --output clubs.zip</pre>
+<pre>curl 'https://launch.micronaut.io/create/default/com.example.micronaut.clubs?lang=JAVA&amp;build=MAVEN&amp;test=JUNIT&amp;javaVersion=JDK_21&amp;features=graalvm&amp;features=data-jdbc&amp;features=postgres' --output clubs.zip</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Unzip <code>clubs.zip</code> and import the project in your IDE.</p>
 </div>
 <div class="paragraph">
-<p>Also, to set up the schema and add some sample data, we are going to use <a href="https://flywaydb.org/">Flyway</a> via its
-<a href="https://github.com/micronaut-projects/micronaut-flyway">Micronaut Flyway integration</a>.</p>
+<p>Also, to set up the schema and add some sample data, we are going to use
+<a href="https://micronaut-projects.github.io/micronaut-test/latest/guide/#sql">Micronaut Test&#8217;s <code>@Sql</code></a> annotation.</p>
 </div>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following migration files:</p>
@@ -963,13 +963,13 @@ convenient way to create repositories that can be used to perform CRUD operation
 <summary class="title">Click to expand</summary>
 <div class="content">
 <div class="listingblock">
-<div class="title"><code>src/main/resources/db/migration/V1__schema.sql</code></div>
+<div class="title"><code>src/main/resources/create.sql</code></div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">create</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">id</span><span class="tok-w"> </span><span class="tok-nb">SERIAL</span><span class="tok-w"> </span><span class="tok-k">PRIMARY</span><span class="tok-w"> </span><span class="tok-k">KEY</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">name</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title"><code>src/main/resources/db/migration/V2__data.sql</code></div>
+<div class="title"><code>src/main/resources/data.sql</code></div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Real Madrid&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Santiago Bernabéu&#39;</span><span class="tok-p">);</span>
 <span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;FC Barcelona&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Camp Nou&#39;</span><span class="tok-p">);</span>
@@ -983,42 +983,22 @@ convenient way to create repositories that can be used to perform CRUD operation
 <span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Inter Milan&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Giuseppe Meazza&#39;</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title"><code>src/main/resources/clean.sql</code></div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">drop</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">;</span></code></pre>
+</div>
+</div>
 </div>
 </details>
 <div class="paragraph">
-<p>At this point, you should be able to run the application and see if the migrations are applied. When using the
-Micronaut Maven Plugin&#8217;s <code>mn:run</code> goal, a Test Resources service will be started automatically, so that required
-containers are run before the application is running.</p>
-</div>
-<div class="paragraph">
-<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Execute the following command</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>./mvnw mn:run</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You should see the following output:</p>
+<p>Also, to prevent Micronaut Data&#8217;s built-in schema generation to conflict with the schema we are going to create, you need
+to remove the following line from <code>application.properties</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="console"><span></span><span class="tok-go">...</span>
-<span class="tok-go">[info] Starting Micronaut Test Resources service, version 2.0.0</span>
-<span class="tok-go">[test-resources-service] 08:10:56.830 [ForkJoinPool.commonPool-worker-9] INFO  i.m.t.e.TestResourcesResolverLoader - Loaded 2 test resources resolvers: io.micronaut.testresources.postgres.PostgreSQLTestResourceProvider, io.micronaut.testresources.testcontainers.GenericTestContainerProvider</span>
-<span class="tok-go">[test-resources-service] 08:10:57.048 [main] INFO  i.m.t.server.TestResourcesService - A Micronaut Test Resources server is listening on port 60231, started in 360ms</span>
-<span class="tok-go">...</span>
-<span class="tok-go">[test-resources-service] 08:10:57.803 [default-nioEventLoopGroup-1-2] INFO  i.m.t.testcontainers.TestContainers - Starting test container postgres</span>
-<span class="tok-go">...</span>
-<span class="tok-go">INFO: Migrating schema &quot;public&quot; to version &quot;1 - schema&quot;</span>
-<span class="tok-go">INFO: Migrating schema &quot;public&quot; to version &quot;2 - data&quot;</span>
-<span class="tok-go">INFO: Successfully applied 2 migrations to schema &quot;public&quot;, now at version v2 (execution time 00:00.016s)</span>
-<span class="tok-go">...</span></code></pre>
+<pre class="pygments highlight"><code data-lang="properties"><span></span><span class="tok-na">datasources.default.schema-generate</span><span class="tok-o">=</span><span class="tok-s">CREATE_DROP</span></code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Now, hit <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>C</kbd></span> to stop the application, since going forward it is going to be tested with
-functional tests.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1043,7 +1023,7 @@ standard JPA annotations.</p>
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>It is in <code>provided</code> scope so that is available during compilation, so that the Micronaut annotation processor can
+<td>It is in <code>provided</code> scope to make it available during compilation, so that the Micronaut annotation processor can
 generate the corresponding beans, but it is not included in the final JAR since at runtime we will not use JPA but
 Micronaut Data JDBC.</td>
 </tr>
@@ -1070,6 +1050,21 @@ attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated 
 </li>
 </ul>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+In a real-world application, you should not expose your JPA entities directly to the outside world. Instead, you
+should create DTOs (Data Transfer Objects) that represent the data you want to expose. This is a good practice to avoid
+leaking implementation details and to have more control over the data you expose. In this exercise, we are exposing the
+JPA entities directly for simplicity.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>We can write a simple test to make sure everything is working as expected.</p>
 </div>
@@ -1082,10 +1077,12 @@ attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated 
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@MicronautTest</span>
+<span class="tok-nd">@Sql</span><span class="tok-p">({</span><span class="tok-s">&quot;classpath:create.sql&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s">&quot;classpath:data.sql&quot;</span><span class="tok-p">})</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-nd">@Sql</span><span class="tok-p">(</span><span class="tok-n">scripts</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-s">&quot;classpath:clean.sql&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">phase</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">Sql</span><span class="tok-p">.</span><span class="tok-na">Phase</span><span class="tok-p">.</span><span class="tok-na">AFTER_ALL</span><span class="tok-p">)</span>
 <span class="tok-kd">class</span> <span class="tok-nc">ClubRepositoryTest</span><span class="tok-w"> </span><span class="tok-p">{</span>
 
 <span class="tok-w">    </span><span class="tok-nd">@Test</span>
-<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItWorks</span><span class="tok-p">(</span><span class="tok-n">ClubRepository</span><span class="tok-w"> </span><span class="tok-n">clubRepository</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItWorks</span><span class="tok-p">(</span><span class="tok-n">ClubRepository</span><span class="tok-w"> </span><span class="tok-n">clubRepository</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"> </span><i class="conum" data-value="2"></i><b>(2)</b>
 <span class="tok-w">        </span><span class="tok-kt">long</span><span class="tok-w"> </span><span class="tok-n">clubCount</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">clubRepository</span><span class="tok-p">.</span><span class="tok-na">count</span><span class="tok-p">();</span>
 <span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">clubCount</span><span class="tok-p">);</span>
 <span class="tok-w">    </span><span class="tok-p">}</span>
@@ -1096,6 +1093,10 @@ attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated 
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>@Sql</code> annotation is used to execute the SQL scripts before and after the test.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
 <td>Micronaut can inject dependencies in test methods.</td>
 </tr>
 </table>
@@ -1119,13 +1120,27 @@ attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated 
 <p><code>ClubApi</code> is an API contract with REST operations. It will be implemented by <code>ClubController</code>, and a <code>ClubClient</code> we
 will create later. For each method annotated with <code>@Get</code>, <code>@Post</code>, <code>@Put</code>, <code>@Delete</code>, etc., Micronaut will figure out
 how to render the corresponding JSON response based on the return type, which can be POJOs or collections of POJOs,
-or wrapped in <code>HttpResponse</code> when we need to customize the response (header, response codes, etc).</p>
+or wrapped in <code>HttpResponse</code> when we need to customise the response (header, response codes, etc).</p>
 </li>
 <li>
 <p><code>ClubController</code> is a Micronaut controller. It is annotated with <code>@Controller</code>, and uses <code>ClubRepository</code> to implement
 the operations.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+In a real-world scenario, a controller should not interact directly with a repository. Instead, it should use a
+service layer that encapsulates the business logic. This is a good practice to separate concerns and make the code more
+testable. In this exercise, we are using the repository directly for simplicity.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>We can now write a functional test for this REST API. In this case, instead of using the low-level HTTP client, we are
@@ -1140,6 +1155,8 @@ going to use a declarative client. For this, we are going to leverage the <code>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@MicronautTest</span>
+<span class="tok-nd">@Sql</span><span class="tok-p">({</span><span class="tok-s">&quot;classpath:create.sql&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s">&quot;classpath:data.sql&quot;</span><span class="tok-p">})</span>
+<span class="tok-nd">@Sql</span><span class="tok-p">(</span><span class="tok-n">scripts</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-s">&quot;classpath:clean.sql&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">phase</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">Sql</span><span class="tok-p">.</span><span class="tok-na">Phase</span><span class="tok-p">.</span><span class="tok-na">AFTER_ALL</span><span class="tok-p">)</span>
 <span class="tok-kd">class</span> <span class="tok-nc">ClubControllerTest</span><span class="tok-w"> </span><span class="tok-p">{</span>
 
 <span class="tok-w">    </span><span class="tok-nd">@Inject</span>
@@ -1149,7 +1166,7 @@ going to use a declarative client. For this, we are going to leverage the <code>
 <span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanListClubs</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
 <span class="tok-w">        </span><span class="tok-n">Iterable</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-n">clubs</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">list</span><span class="tok-p">();</span>
 
-<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-p">((</span><span class="tok-n">Collection</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-p">)</span><span class="tok-n">clubs</span><span class="tok-p">).</span><span class="tok-na">size</span><span class="tok-p">());</span>
+<span class="tok-w">        </span><span class="tok-n">assertFalse</span><span class="tok-p">(((</span><span class="tok-n">Collection</span><span class="tok-o">&lt;?&gt;</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-n">clubs</span><span class="tok-p">).</span><span class="tok-na">isEmpty</span><span class="tok-p">());</span>
 <span class="tok-w">    </span><span class="tok-p">}</span>
 
 <span class="tok-w">    </span><span class="tok-nd">@Test</span>
@@ -1228,7 +1245,7 @@ non-existing IDs, or invalid payloads.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-03 13:36:03 +0200
+Last updated 2024-05-19 18:45:08 +0200
 </div>
 </div>
 </body>
