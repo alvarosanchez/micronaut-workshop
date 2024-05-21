@@ -522,7 +522,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </ul>
 </li>
 <li><a href="#_application_architecture">Application architecture</a></li>
-<li><a href="#_getting_started_with_micronaut_and_graalvm_35_minutes">1. Getting started with Micronaut and GraalVM (35 minutes)</a>
+<li><a href="#_getting_started_with_micronaut_and_graalvm_30_minutes">1. Getting started with Micronaut and GraalVM (~30 minutes)</a>
 <ul class="sectlevel2">
 <li><a href="#_using_micronaut_launch_to_create_a_new_application_5_minutes">1.1. Using Micronaut Launch to create a new application (5 minutes)</a></li>
 <li><a href="#_running_the_application_with_the_micronaut_maven_plugin_5_minutes">1.2. Running the application with the Micronaut Maven Plugin (5 minutes)</a></li>
@@ -532,12 +532,14 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_exploring_the_micronaut_control_panel_5_minutes">1.6. Exploring the Micronaut Control Panel (5 minutes)</a></li>
 </ul>
 </li>
-<li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_60_minutes">2. Implementing a data access layer with Micronaut Data JDBC (60 minutes)</a>
+<li><a href="#_implementing_a_data_access_layer_with_micronaut_data_jdbc_90_minutes">2. Implementing a data access layer with Micronaut Data JDBC (~90 minutes)</a>
 <ul class="sectlevel2">
 <li><a href="#_preparing_the_project_15_minutes">2.1. Preparing the project (15 minutes)</a></li>
-<li><a href="#_implementing_the_data_access_layer_15_minutes">2.2. Implementing the data access layer (15 minutes)</a></li>
-<li><a href="#_implementing_the_rest_api_15_minutes">2.3. Implementing the REST API (15 minutes)</a></li>
-<li><a href="#_completing_the_rest_api_15_minutes">2.4. Completing the REST API (15 minutes)</a></li>
+<li><a href="#_implementing_the_entities_20_minutes">2.2. Implementing the entities (20 minutes)</a></li>
+<li><a href="#_implementing_the_data_transfer_objects_15_minutes">2.3. Implementing the data transfer objects (15 minutes)</a></li>
+<li><a href="#_implementing_the_service_layer_15_minutes">2.4. Implementing the service layer (15 minutes)</a></li>
+<li><a href="#_implementing_the_rest_api_15_minutes">2.5. Implementing the REST API (15 minutes)</a></li>
+<li><a href="#_completing_the_rest_api_15_minutes">2.6. Completing the REST API (15 minutes)</a></li>
 </ul>
 </li>
 </ul>
@@ -652,7 +654,7 @@ To highlight the actions you actually need to perform, an icon is used: <span cl
 </div>
 </div>
 <div class="sect1">
-<h2 id="_getting_started_with_micronaut_and_graalvm_35_minutes">1. Getting started with Micronaut and GraalVM (35 minutes)</h2>
+<h2 id="_getting_started_with_micronaut_and_graalvm_30_minutes">1. Getting started with Micronaut and GraalVM (~30 minutes)</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -973,7 +975,7 @@ Check the <a href="https://micronaut-projects.github.io/micronaut-control-panel/
 </div>
 </div>
 <div class="sect1">
-<h2 id="_implementing_a_data_access_layer_with_micronaut_data_jdbc_60_minutes">2. Implementing a data access layer with Micronaut Data JDBC (60 minutes)</h2>
+<h2 id="_implementing_a_data_access_layer_with_micronaut_data_jdbc_90_minutes">2. Implementing a data access layer with Micronaut Data JDBC (~90 minutes)</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -1033,28 +1035,41 @@ convenient way to create repositories that can be used to perform CRUD operation
 <div class="listingblock">
 <div class="title"><code>src/main/resources/create.sql</code></div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">create</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">id</span><span class="tok-w"> </span><span class="tok-nb">SERIAL</span><span class="tok-w"> </span><span class="tok-k">PRIMARY</span><span class="tok-w"> </span><span class="tok-k">KEY</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">name</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">create</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">id</span><span class="tok-w"> </span><span class="tok-nb">SERIAL</span><span class="tok-w"> </span><span class="tok-k">PRIMARY</span><span class="tok-w"> </span><span class="tok-k">KEY</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">name</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">);</span>
+<span class="tok-k">create</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">id</span><span class="tok-w"> </span><span class="tok-nb">SERIAL</span><span class="tok-w"> </span><span class="tok-k">PRIMARY</span><span class="tok-w"> </span><span class="tok-k">KEY</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">name</span><span class="tok-w"> </span><span class="tok-nb">TEXT</span><span class="tok-p">,</span><span class="tok-w">  </span><span class="tok-n">stadium_id</span><span class="tok-w"> </span><span class="tok-nb">INT</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-k">FOREIGN</span><span class="tok-w"> </span><span class="tok-k">KEY</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">REFERENCES</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">id</span><span class="tok-p">));</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title"><code>src/main/resources/data.sql</code></div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Real Madrid&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Santiago Bernabéu&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;FC Barcelona&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Camp Nou&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Manchester United&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Old Trafford&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Chelsea&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Stamford Bridge&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Paris Saint-Germain&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Parc des Princes&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Olympique de Marseille&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Stade Vélodrome&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Bayern Munich&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Allianz Arena&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Borussia Dortmund&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Signal Iduna Park&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Juventus&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Juventus Stadium&#39;</span><span class="tok-p">);</span>
-<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Inter Milan&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Giuseppe Meazza&#39;</span><span class="tok-p">);</span></code></pre>
+<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Santiago Bernabéu&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Madrid&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Spain&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Camp Nou&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Barcelona&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Spain&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Old Trafford&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Manchester&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;England&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Stamford Bridge&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;London&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;England&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Parc des Princes&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Paris&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;France&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Stade Vélodrome&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Marseille&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;France&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Allianz Arena&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Munich&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Germany&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Signal Iduna Park&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Dortmund&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Germany&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Juventus Stadium&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Turin&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Italy&#39;</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">city</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">country</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Giuseppe Meazza&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Milan&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s1">&#39;Italy&#39;</span><span class="tok-p">);</span>
+
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Real Madrid&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">1</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;FC Barcelona&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">2</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Manchester United&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">3</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Chelsea&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">4</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Paris Saint-Germain&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">5</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Olympique de Marseille&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">6</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Bayern Munich&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">7</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Borussia Dortmund&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">8</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Juventus&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">9</span><span class="tok-p">);</span>
+<span class="tok-k">insert</span><span class="tok-w"> </span><span class="tok-k">into</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">(</span><span class="tok-n">name</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">stadium_id</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-k">values</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-s1">&#39;Inter Milan&#39;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-mi">10</span><span class="tok-p">);</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title"><code>src/main/resources/clean.sql</code></div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">drop</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="sql"><span></span><span class="tok-k">drop</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">;</span>
+<span class="tok-k">drop</span><span class="tok-w"> </span><span class="tok-k">table</span><span class="tok-w"> </span><span class="tok-n">stadium</span><span class="tok-p">;</span></code></pre>
 </div>
 </div>
 </div>
@@ -1070,10 +1085,11 @@ to remove the following line from <code>application.properties</code>:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_implementing_the_data_access_layer_15_minutes">2.2. Implementing the data access layer (15 minutes)</h3>
+<h3 id="_implementing_the_entities_20_minutes">2.2. Implementing the entities (20 minutes)</h3>
 <div class="paragraph">
-<p>For the data access layer, we are going to use the <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#jdbc">Micronaut Data</a> library in its JDBC flavour. In the source code, we will use
-standard JPA annotations.</p>
+<p>For the data access layer, we are going to use the
+<a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#jdbc">Micronaut Data</a> library in its JDBC flavour. In
+the source code, we will use standard JPA annotations.</p>
 </div>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Add the following dependency:</p>
@@ -1108,30 +1124,21 @@ Micronaut Data JDBC.</td>
 <div class="ulist">
 <ul>
 <li>
-<p><code>Club</code> is a JPA entity, so it is annotated with <code>@Entity</code>. It is also annotated with <code>@Serdeable</code> so that it can be
-serialized and deserialized by Micronaut Serialization.</p>
+<p><code>Club</code> is a JPA entity, so it is annotated with <code>@Entity</code>. It has a <code>@OneToOne</code> relationship with <code>Stadium</code>. The
+<code>@JoinColumn</code> annotation is used to specify the column that will be used to join the two tables. The <code>@Id</code> and
+<code>@GeneratedValue</code> annotations are used to specify that the <code>id</code> field is the primary key and that it is automatically
+generated by the database.</p>
+</li>
+<li>
+<p><code>Stadium</code> is another JPA entity. It is also annotated with <code>@Entity</code>.</p>
 </li>
 <li>
 <p><code>ClubRepository</code> is a Micronaut Data JDBC repository. It extends <code>CrudRepository</code> so that it inherits the basic CRUD
 operations. It is annotated with <code>@JdbcRepository</code> so that it is recognized by Micronaut Data JDBC. The <code>dialect</code>
-attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated at compile time work with PostgreSQL.</p>
+attribute is set to <code>Dialect.POSTGRES</code> so that the queries generated at compile time work with PostgreSQL. The
+<code>@Join</code> annotation is used to specify that the <code>stadium</code> field should be eagerly fetched when querying the <code>Club</code>   entity.</p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-In a real-world application, you should not expose your JPA entities directly to the outside world. Instead, you
-should create DTOs (Data Transfer Objects) that represent the data you want to expose. This is a good practice to avoid
-leaking implementation details and to have more control over the data you expose. In this exercise, we are exposing the
-JPA entities directly for simplicity.
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>We can write a simple test to make sure everything is working as expected.</p>
@@ -1152,7 +1159,7 @@ JPA entities directly for simplicity.
 <span class="tok-w">    </span><span class="tok-nd">@Test</span>
 <span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItWorks</span><span class="tok-p">(</span><span class="tok-n">ClubRepository</span><span class="tok-w"> </span><span class="tok-n">clubRepository</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"> </span><i class="conum" data-value="2"></i><b>(2)</b>
 <span class="tok-w">        </span><span class="tok-kt">long</span><span class="tok-w"> </span><span class="tok-n">clubCount</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">clubRepository</span><span class="tok-p">.</span><span class="tok-na">count</span><span class="tok-p">();</span>
-<span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">clubCount</span><span class="tok-p">);</span>
+<span class="tok-w">        </span><span class="tok-n">assertTrue</span><span class="tok-p">(</span><span class="tok-n">clubCount</span><span class="tok-w"> </span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-mi">0</span><span class="tok-p">);</span>
 <span class="tok-w">    </span><span class="tok-p">}</span>
 <span class="tok-p">}</span></code></pre>
 </div>
@@ -1173,7 +1180,114 @@ JPA entities directly for simplicity.
 </details>
 </div>
 <div class="sect2">
-<h3 id="_implementing_the_rest_api_15_minutes">2.3. Implementing the REST API (15 minutes)</h3>
+<h3 id="_implementing_the_data_transfer_objects_15_minutes">2.3. Implementing the data transfer objects (15 minutes)</h3>
+<div class="paragraph">
+<p>In this REST API, the club and stadium are represented together. The fact that they are separate entities is an
+implementation detail that should not be exposed to the client. To solve this, we are going to create a data transfer
+object (DTO) that represents how the clubs are rendered.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following DTO:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/dtos.png" alt="dtos">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@Serdeable</code> annotation is used to indicate that the class can be serialized and deserialized by
+<a href="https://micronaut-projects.github.io/micronaut-serialization/latest/guide/">Micronaut Serialization</a>.</p>
+</div>
+<div class="paragraph">
+<p>To map from the entity to the DTO and vice versa, we are going to use Micronaut&#8217;s built-in
+<a href="https://docs.micronaut.io/latest/guide/#beanMappers">bean mappers</a>.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following mapper:</p>
+</div>
+<details>
+<summary class="title">Click to expand</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-nd">@Singleton</span>
+<span class="tok-kd">public</span><span class="tok-w"> </span><span class="tok-kd">interface</span> <span class="tok-nc">ClubMapper</span><span class="tok-w"> </span><span class="tok-p">{</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Mapping</span><span class="tok-p">(</span><span class="tok-n">to</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-s">&quot;stadium&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">from</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-s">&quot;#{ club.stadium().toString() }&quot;</span><span class="tok-p">)</span><span class="tok-w"> </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tok-w">    </span><span class="tok-n">ClubDto</span><span class="tok-w"> </span><span class="tok-nf">toDto</span><span class="tok-p">(</span><span class="tok-n">Club</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">);</span>
+
+<span class="tok-w">    </span><span class="tok-nd">@Mapping</span><span class="tok-p">(</span><span class="tok-n">to</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-s">&quot;stadium&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">from</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-s">&quot;#{ this.getStadium(club) }&quot;</span><span class="tok-p">)</span><span class="tok-w"> </span><i class="conum" data-value="2"></i><b>(2)</b>
+<span class="tok-w">    </span><span class="tok-n">Club</span><span class="tok-w"> </span><span class="tok-nf">toEntity</span><span class="tok-p">(</span><span class="tok-n">ClubDto</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">);</span>
+
+<span class="tok-w">    </span><span class="tok-k">default</span><span class="tok-w"> </span><span class="tok-n">Stadium</span><span class="tok-w"> </span><span class="tok-nf">getStadium</span><span class="tok-p">(</span><span class="tok-n">ClubDto</span><span class="tok-w"> </span><span class="tok-n">clubDto</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"> </span><i class="conum" data-value="3"></i><b>(3)</b>
+<span class="tok-w">        </span><span class="tok-n">String</span><span class="tok-o">[]</span><span class="tok-w"> </span><span class="tok-n">parts</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">clubDto</span><span class="tok-p">.</span><span class="tok-na">stadium</span><span class="tok-p">().</span><span class="tok-na">split</span><span class="tok-p">(</span><span class="tok-s">&quot; \\(&quot;</span><span class="tok-p">);</span>
+<span class="tok-w">        </span><span class="tok-n">String</span><span class="tok-o">[]</span><span class="tok-w"> </span><span class="tok-n">location</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">parts</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]</span><span class="tok-p">.</span><span class="tok-na">replace</span><span class="tok-p">(</span><span class="tok-s">&quot;)&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-s">&quot;&quot;</span><span class="tok-p">).</span><span class="tok-na">split</span><span class="tok-p">(</span><span class="tok-s">&quot;, &quot;</span><span class="tok-p">);</span>
+<span class="tok-w">        </span><span class="tok-k">return</span><span class="tok-w"> </span><span class="tok-n">Stadium</span><span class="tok-p">.</span><span class="tok-na">of</span><span class="tok-p">(</span><span class="tok-n">parts</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">]</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">location</span><span class="tok-o">[</span><span class="tok-mi">0</span><span class="tok-o">]</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">location</span><span class="tok-o">[</span><span class="tok-mi">1</span><span class="tok-o">]</span><span class="tok-p">);</span><span class="tok-w"> </span><i class="conum" data-value="4"></i><b>(4)</b>
+<span class="tok-w">    </span><span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>@Mapping</code> annotation is used to specify how the fields should be mapped when a custom mapping is needed between
+fields. Fields whose names are the same are automatically mapped. In this case, we need to map the <code>stadium</code> field
+from the entity to the <code>stadium</code> field of the DTO. The string representation of the stadium is determined by
+<code>Stadium::toString</code>. The value of the <code>from</code> attribute is using
+<a href="https://docs.micronaut.io/latest/guide/#evaluatedExpressions">Micronaut&#8217;s Expression Language</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>For the reverse mapping, we need to unwind the previous conversion and parse the string into a <code>Stadium</code> object. In
+this case, we are using a default method in the interface, which is called from the Micronaut expression.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The parsing implementation splits the string into the different fields of <code>Stadium</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><code>Stadium::of</code> is a utility method to create a <code>Stadium</code> object from a name, city, and country.</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Ideally there should be a <code>StadiumDto</code> and implement its own mapping from/to entities in a less fragile way that
+does not imply string parsing. But for the sake of simplicity, we are going to use the current approach.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementing_the_service_layer_15_minutes">2.4. Implementing the service layer (15 minutes)</h3>
+<div class="paragraph">
+<p>Since we don&#8217;t want the controller to interact directly with the repository, we are going to create a service layer that
+encapsulates the business logic. This service layer will use the repository and the mapper to perform the operations.</p>
+</div>
+<div class="paragraph">
+<p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following service:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/service.png" alt="service">
+</div>
+</div>
+<div class="paragraph">
+<p>If in doubt, check the solution in the <code>lab02/solution</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_implementing_the_rest_api_15_minutes">2.5. Implementing the REST API (15 minutes)</h3>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Create the following REST API:</p>
 </div>
@@ -1195,20 +1309,6 @@ or wrapped in <code>HttpResponse</code> when we need to customise the response (
 the operations.</p>
 </li>
 </ul>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-In a real-world scenario, a controller should not interact directly with a repository. Instead, it should use a
-service layer that encapsulates the business logic. This is a good practice to separate concerns and make the code more
-testable. In this exercise, we are using the repository directly for simplicity.
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>We can now write a functional test for this REST API. In this case, instead of using the low-level HTTP client, we are
@@ -1232,18 +1332,17 @@ going to use a declarative client. For this, we are going to leverage the <code>
 
 <span class="tok-w">    </span><span class="tok-nd">@Test</span>
 <span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanListClubs</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
-<span class="tok-w">        </span><span class="tok-n">Iterable</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-n">clubs</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">list</span><span class="tok-p">();</span>
+<span class="tok-w">        </span><span class="tok-kd">var</span><span class="tok-w"> </span><span class="tok-n">clubs</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">list</span><span class="tok-p">();</span>
 
-<span class="tok-w">        </span><span class="tok-n">assertFalse</span><span class="tok-p">(((</span><span class="tok-n">Collection</span><span class="tok-o">&lt;?&gt;</span><span class="tok-p">)</span><span class="tok-w"> </span><span class="tok-n">clubs</span><span class="tok-p">).</span><span class="tok-na">isEmpty</span><span class="tok-p">());</span>
+<span class="tok-w">        </span><span class="tok-n">assertFalse</span><span class="tok-p">(</span><span class="tok-n">clubs</span><span class="tok-p">.</span><span class="tok-na">isEmpty</span><span class="tok-p">());</span>
 <span class="tok-w">    </span><span class="tok-p">}</span>
 
 <span class="tok-w">    </span><span class="tok-nd">@Test</span>
 <span class="tok-w">    </span><span class="tok-kt">void</span><span class="tok-w"> </span><span class="tok-nf">testItCanGetAClub</span><span class="tok-p">()</span><span class="tok-w"> </span><span class="tok-p">{</span>
-<span class="tok-w">        </span><span class="tok-n">HttpResponse</span><span class="tok-o">&lt;</span><span class="tok-n">Club</span><span class="tok-o">&gt;</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">get</span><span class="tok-p">(</span><span class="tok-mi">1L</span><span class="tok-p">);</span>
-
+<span class="tok-w">        </span><span class="tok-kd">var</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">client</span><span class="tok-p">.</span><span class="tok-na">get</span><span class="tok-p">(</span><span class="tok-mi">1L</span><span class="tok-p">);</span>
 <span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-mi">200</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-na">code</span><span class="tok-p">());</span>
 
-<span class="tok-w">        </span><span class="tok-n">Club</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-na">body</span><span class="tok-p">();</span>
+<span class="tok-w">        </span><span class="tok-n">ClubDto</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">response</span><span class="tok-p">.</span><span class="tok-na">body</span><span class="tok-p">();</span>
 <span class="tok-w">        </span><span class="tok-n">assertNotNull</span><span class="tok-p">(</span><span class="tok-n">club</span><span class="tok-p">);</span>
 <span class="tok-w">        </span><span class="tok-n">assertEquals</span><span class="tok-p">(</span><span class="tok-s">&quot;Real Madrid&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">club</span><span class="tok-p">.</span><span class="tok-na">name</span><span class="tok-p">());</span>
 <span class="tok-w">    </span><span class="tok-p">}</span>
@@ -1274,7 +1373,8 @@ generated by Micronaut at compile time.</td>
 </div>
 </details>
 <div class="paragraph">
-<p>In order to see the HTTP requests and responses, and also the SQL queries, we can declare the following loggers:</p>
+<p>In order to see the HTTP requests and responses, and also the SQL queries, we can declare the following loggers
+(nested in the <code>&lt;configuration&gt;</code> element):</p>
 </div>
 <div class="listingblock">
 <div class="title"><code>src/main/resources/logback.xml</code></div>
@@ -1285,7 +1385,7 @@ generated by Micronaut at compile time.</td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_completing_the_rest_api_15_minutes">2.4. Completing the REST API (15 minutes)</h3>
+<h3 id="_completing_the_rest_api_15_minutes">2.6. Completing the REST API (15 minutes)</h3>
 <div class="paragraph">
 <p><span class="icon"><i class="fa fa-hand-o-right"></i></span> Using the knowledge acquired in the previous exercises, you can now complete the REST API by implementing the following
 endpoints:</p>
@@ -1313,7 +1413,7 @@ non-existing IDs, or invalid payloads.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-19 20:19:12 +0200
+Last updated 2024-05-19 20:29:22 +0200
 </div>
 </div>
 </body>
