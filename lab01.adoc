@@ -114,7 +114,7 @@ icon:hand-o-right[] Once finished, you can run the JAR:
 
 icon:hand-o-right[] To create a Docker image, run:
 
-    ./mvnw package -Dpackaging=docker
+    ./mvnw clean package -Dpackaging=docker
 
 icon:hand-o-right[] Once finished, you can run the Docker image:
 
@@ -125,7 +125,7 @@ self-contained executable that can be run without a JVM.
 
 icon:hand-o-right[] To generate a native executable, run:
 
-  ./mvnw package -Dpackaging=native-image
+  ./mvnw clean package -Dpackaging=native-image
 
 On modern hardware, this should take about one minute.
 
