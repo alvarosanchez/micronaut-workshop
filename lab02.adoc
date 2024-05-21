@@ -275,6 +275,9 @@ image::rest-api.png[]
 * `ClubController` is a Micronaut controller. It is annotated with `@Controller`, and uses `ClubService` to implement
   the operations.
 
+TIP: The https://docs.micronaut.io/latest/api/io/micronaut/http/HttpResponse.html[`HttpResponse`] has some static methods
+to create responses with different status codes, headers, etc.
+
 We can now write a functional test for this REST API. In this case, instead of using the low-level HTTP client, we are
 going to use a declarative client. For this, we are going to leverage the `ClubApi` interface we have just created.
 
