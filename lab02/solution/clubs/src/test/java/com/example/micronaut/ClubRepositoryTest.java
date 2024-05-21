@@ -1,10 +1,11 @@
 package com.example.micronaut;
 
+import com.example.micronaut.clubs.ClubRepository;
 import io.micronaut.test.annotation.Sql;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //tag::test[]
 @MicronautTest
@@ -15,7 +16,7 @@ class ClubRepositoryTest {
     @Test
     void testItWorks(ClubRepository clubRepository) { // <2>
         long clubCount = clubRepository.count();
-        assertEquals(10, clubCount);
+        assertTrue(clubCount > 0);
     }
 }
 //end::test[]

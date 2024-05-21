@@ -1,4 +1,4 @@
-== Getting started with Micronaut and GraalVM (35 minutes)
+== Getting started with Micronaut and GraalVM (~30 minutes)
 
 TIP: Change to the `lab01` directory to work on this exercise
 

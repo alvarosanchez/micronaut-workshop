@@ -1,13 +1,12 @@
 package com.example.micronaut;
 
-import io.micronaut.http.HttpResponse;
+import com.example.micronaut.clubs.ClubApi;
+import com.example.micronaut.clubs.ClubDto;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.annotation.Sql;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,18 +21,17 @@ class ClubControllerTest {
 
     @Test
     void testItCanListClubs() {
-        Iterable<Club> clubs = client.list();
+        var clubs = client.list();
 
-        assertFalse(((Collection<?>) clubs).isEmpty());
+        assertFalse(clubs.isEmpty());
     }
 
     @Test
     void testItCanGetAClub() {
-        HttpResponse<Club> response = client.get(1L);
-
+        var response = client.get(1L);
         assertEquals(200, response.code());
 
-        Club club = response.body();
+        ClubDto club = response.body();
         assertNotNull(club);
         assertEquals("Real Madrid", club.name());
     }
@@ -46,9 +44,8 @@ class ClubControllerTest {
 
     @Test
     void itCanCreateAClub() {
-        Club club = new Club("CD Leganés", "Estadio Municipal de Butarque");
-        HttpResponse<Void> response = client.create(club);
-
+        ClubDto club = ClubDto.of("CD Leganés", "Estadio Municipal de Butarque (Leganés, Spain)");
+        var response = client.create(club);
 
         assertEquals(201, response.code());
         assertNotNull(response.header("Location"));
@@ -56,33 +53,32 @@ class ClubControllerTest {
 
     @Test
     void itCanUpdateAClub() {
-        Long clubId = createClub("CD Leganés", "Estadio Municipal de Butarque");
-
-        Club club = new Club("Club Deportivo Leganés", "Estadio Municipal de Butarque");
-        HttpResponse<Void> response = client.update(clubId, club);
+        ClubDto club = createClub("CD Leganés", "Estadio Municipal de Butarque (Leganés, Spain)");
+        ClubDto updated = club.withName("Club Deportivo Leganés");
+        var response = client.update(updated.id(), updated);
 
         assertEquals(204, response.code());
 
-        Club updated = client.get(clubId).body();
-        assertEquals("Club Deportivo Leganés", updated.name());
+        var getResponse = client.get(updated.id()).body();
+        assertEquals("Club Deportivo Leganés", getResponse.name());
     }
 
     @Test
     void itCanDeleteAClub() {
-        Long clubId = createClub("Getafe CF", "Coliseum Alfonso Pérez");
-        HttpResponse<Void> response = client.delete(clubId);
-
+        ClubDto club = createClub("Getafe CF", "Coliseum Alfonso Pérez (Getafe, Spain)");
+        var response = client.delete(club.id());
         assertEquals(204, response.code());
 
-        HttpResponse<Club> getResponse = client.get(clubId);
+        var getResponse = client.get(club.id());
         assertEquals(404, getResponse.code());
     }
 
-    private Long createClub(String name, String stadium) {
-        Club club = new Club(name, stadium);
-        HttpResponse<Void> response = client.create(club);
-        Long clubId = Long.valueOf(response.header("Location").replace("/clubs/", ""));
-        return clubId;
+    private ClubDto createClub(String name, String stadium) {
+        ClubDto club = ClubDto.of(name, stadium);
+        var createResponse = client.create(club);
+        Long clubId = Long.valueOf(createResponse.header("Location").replace("/clubs/", ""));
+        var getResponse = client.get(clubId);
+        return getResponse.body();
     }
 
 //tag::clazz[]

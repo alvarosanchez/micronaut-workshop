@@ -20,7 +20,7 @@
     <micronaut.aot.enabled>false</micronaut.aot.enabled>
     <micronaut.aot.packageName>com.example.micronaut.aot.generated</micronaut.aot.packageName>
     <micronaut.runtime>netty</micronaut.runtime>
-    <exec.mainClass>com.example.micronaut.Application</exec.mainClass>
+    <exec.mainClass>com.example.micronaut.clubs.Application</exec.mainClass>
   </properties>
 
   <repositories>

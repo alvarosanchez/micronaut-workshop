@@ -1,4 +1,4 @@
-package com.example.micronaut;
+package com.example.micronaut.clubs;
 
 import io.micronaut.runtime.Micronaut;
 

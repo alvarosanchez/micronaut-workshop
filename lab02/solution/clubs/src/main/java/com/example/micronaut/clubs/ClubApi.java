@@ -1,4 +1,4 @@
-package com.example.micronaut;
+package com.example.micronaut.clubs;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Delete;
@@ -6,19 +6,21 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 
+import java.util.Collection;
+
 public interface ClubApi {
 
     @Get
-    Iterable<Club> list();
+    Collection<ClubDto> list();
 
     @Get("/{id}")
-    HttpResponse<Club> get(Long id);
+    HttpResponse<ClubDto> get(Long id);
 
     @Post
-    HttpResponse<Void> create(Club club);
+    HttpResponse<Void> create(ClubDto club);
 
     @Put("/{id}")
-    HttpResponse<Void> update(Long id, Club club);
+    HttpResponse<Void> update(Long id, ClubDto club);
 
     @Delete("/{id}")
     HttpResponse<Void> delete(Long id);
