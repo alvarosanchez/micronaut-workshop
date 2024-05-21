@@ -196,7 +196,8 @@ include::./lab02/solution/clubs/src/main/java/com/example/micronaut/clubs/ClubMa
 <2> For the reverse mapping, we need to unwind the previous conversion and parse the string into a `Stadium` object. In
     this case, we are using a default method in the interface, which is called from the Micronaut expression.
 <3> The parsing implementation splits the string into the different fields of `Stadium`.
-<4> `Stadium::of` is a utility method to create a `Stadium` object from a name, city, and country.
+<4> `Stadium::of` is a utility method to create a `Stadium` object from a name, city, and country. Please create such a
+    method in the `Stadium` class, passing `null` for the `id` field.
 ====
 
 WARNING: Ideally there should be a `StadiumDto` and implement its own mapping from/to entities in a less fragile way that
