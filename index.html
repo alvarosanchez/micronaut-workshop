@@ -1311,6 +1311,19 @@ the operations.</p>
 </li>
 </ul>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <a href="https://docs.micronaut.io/latest/api/io/micronaut/http/HttpResponse.html"><code>HttpResponse</code></a> has some static methods
+to create responses with different status codes, headers, etc.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>We can now write a functional test for this REST API. In this case, instead of using the low-level HTTP client, we are
 going to use a declarative client. For this, we are going to leverage the <code>ClubApi</code> interface we have just created.</p>
@@ -1414,7 +1427,7 @@ non-existing IDs, or invalid payloads.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-21 16:59:31 +0200
+Last updated 2024-05-21 17:23:24 +0200
 </div>
 </div>
 </body>
