@@ -272,7 +272,7 @@ image::rest-api.png[]
   will create later. For each method annotated with `@Get`, `@Post`, `@Put`, `@Delete`, etc., Micronaut will figure out
   how to render the corresponding JSON response based on the return type, which can be POJOs or collections of POJOs,
   or wrapped in `HttpResponse` when we need to customise the response (header, response codes, etc).
-* `ClubController` is a Micronaut controller. It is annotated with `@Controller`, and uses `ClubRepository` to implement
+* `ClubController` is a Micronaut controller. It is annotated with `@Controller`, and uses `ClubService` to implement
   the operations.
 
 We can now write a functional test for this REST API. In this case, instead of using the low-level HTTP client, we are
